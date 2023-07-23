@@ -1,0 +1,43 @@
+.about-me {
+  padding: 0 14px;
+}
+
+.about-me__title {
+  margin: 0 4px;
+  padding: 70px 0 28px;
+  border-bottom: solid #DADADA 1px;
+}
+
+.about-me__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-me__foto {
+  margin: 60px auto 40px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.about-me__name {
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: -1.2px;
+}
+
+.about-me__subtitle {
+  text-align: left;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-weight: 500;
+}
+
+.about-me__text {
+  text-align: left;
+  font-feature-settings: 'clig' off, 'liga' off;
+}
+
+.about-me__link {
+  color: #FFF;
+  font-size: 14px;
+  font-weight: 500;
+}

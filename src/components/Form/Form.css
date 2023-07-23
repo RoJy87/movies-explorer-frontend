@@ -1,0 +1,22 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #202020;
+}
+
+.form__header {
+  color: #FFF;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 29px;
+}
+
+.form__button {
+  width: 260px;
+  height: 45px;
+  border-radius: 3px;
+  background: #4285F4;
+}
