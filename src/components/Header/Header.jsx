@@ -1,30 +1,37 @@
 import React from "react";
 import logo from "../../images/logo.svg";
 import { classNames } from "../../utils/classNames";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import Navigation from "../Navigation/Navigation";
 
-export default function Header({ isMenuVisible, handleClickMenu, loggedIn }) {
-  const location = useLocation();
+export default function Header({ loggedIn, children }) {
+  const path = useLocation().pathname;
+  console.log(loggedIn);
+
   return (
     <header
       className={classNames("header", {
         header_auth: loggedIn,
-        header_page_promo: location.pathname === "/",
+        header_page_promo: path === "/",
       })}
     >
-      <img src={logo} alt="Логотип сайта" className="header__logo" />
-      <div>
-        {loggedIn && (
-          <button
-            onClick={handleClickMenu}
-            className={classNames("header__burger", { opened: isMenuVisible })}
-          >
-            <span className="bar-top"></span>
-            <span className="bar-mid"></span>
-            <span className="bar-bot"></span>
-          </button>
-        )}
-      </div>
+      <Link to={"/"} className="header__logo">
+        <img src={logo} alt="Логотип сайта" />
+      </Link>
+
+      {loggedIn ? (
+        <Navigation />
+      ) : (
+        <div className="header__links">
+          <Link to="/signup" className="header__link link">
+            Регистрация
+          </Link>
+          <Link to="/signin" className="header__button link">
+            Вход
+          </Link>
+          {children}
+        </div>
+      )}
     </header>
   );
 }

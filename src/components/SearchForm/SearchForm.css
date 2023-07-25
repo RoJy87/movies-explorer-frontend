@@ -1,0 +1,99 @@
+.search-form {
+  padding: 80px 0 120px;
+  border-bottom: 1px solid #424242;
+  margin: 0 10px;
+}
+
+.search-form__container {
+  border-radius: 9px;
+  background: #222;
+  box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.search-form__label {
+  padding-right: 20px;
+  border-right: 1px solid;
+  display: flex;
+  gap: 20px;
+  flex-grow: 1;
+  width: 100%;
+  align-items: center;
+}
+
+.search-form__input {
+  background-color: #222;
+  flex-grow: 1;
+  border: none;
+  padding: 9px 4px 9px 50px;
+  background: transparent url("data: image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='34' viewBox='0 0 34 34' fill='none' %3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M18.7929 18.2638C17.361 19.6957 15.0394 19.6957 13.6075 18.2638C12.1755 16.8319 12.1755 14.5103 13.6075 13.0783C15.0394 11.6464 17.361 11.6464 18.7929 13.0783C20.2248 14.5103 20.2248 16.8319 18.7929 18.2638ZM19.2333 19.6468C17.2731 21.1462 14.4575 20.9994 12.6647 19.2066C10.712 17.254 10.712 14.0882 12.6647 12.1355C14.6173 10.1829 17.7831 10.1829 19.7357 12.1355C21.5285 13.9283 21.6753 16.7437 20.1761 18.7039L23.7428 22.2706L22.8 23.2134L19.2333 19.6468Z' fill='%23A0A0A0' /%3E%3C/svg%3E") no-repeat 13px center;
+}
+
+.search-form__button {
+  width: 80px;
+  height: 34px;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='34' viewBox='0 0 80 34' fill='none'%3E%3Crect x='46' width='34' height='34' rx='17' fill='%234285F4'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M64.7929 18.2638C63.361 19.6957 61.0394 19.6957 59.6075 18.2638C58.1755 16.8319 58.1755 14.5103 59.6075 13.0783C61.0394 11.6464 63.361 11.6464 64.7929 13.0783C66.2248 14.5103 66.2248 16.8319 64.7929 18.2638ZM65.2333 19.6468C63.2731 21.1462 60.4575 20.9994 58.6647 19.2066C56.712 17.254 56.712 14.0882 58.6647 12.1355C60.6173 10.1829 63.7831 10.1829 65.7357 12.1355C67.5285 13.9283 67.6753 16.7437 66.1761 18.7039L69.7428 22.2706L68.8 23.2134L65.2333 19.6468Z' fill='white'/%3E%3C/svg%3E");
+  border-radius: 20px;
+  border: none;
+
+}
+
+.checkbox {
+  color: #FFF;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+  padding: 0 0 0 70px;
+  position: relative;
+  cursor: pointer;
+
+  transition: all .5s ease 0s;
+  -webkit-transition: all .3s ease 0s;
+  -moz-transition: all .3s ease 0s;
+  -ms-transition: all .3s ease 0s;
+  -o-transition: all .3s ease 0s;
+}
+
+.checkbox::before {
+  content: '';
+  width: 40px;
+  height: 20px;
+  border-radius: 20px;
+  background-color: 202020;
+  position: absolute;
+  left: 0;
+  top: 0;
+  webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.checkbox::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: 202020;
+  position: absolute;
+  left: 0;
+  top: 0;
+  webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.checkbox input {
+  display: none;
+}
+
+.checked {}
+
+.checked::before {
+  background-color: #202020;
+}
+
+.checked::after {
+  background-color: #3DDC84;
+  left: 25px
+}

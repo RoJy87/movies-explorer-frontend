@@ -1,0 +1,28 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import arrow from "../../images/arrow_icon.png";
+import { portfolioList } from "../../utils/constants";
+
+export default function Portfolio() {
+  return (
+    <section className="portfolio">
+      <h2 className="portfolio__title">Портфолио</h2>
+      <ul className="portfolio__list">
+        {portfolioList.map((item) => {
+          return (
+            <li className="portfolio__item" key={Date.now() + Math.random()}>
+              <Link
+                className="portfolio__link link"
+                to={item.adress}
+                target="_blank"
+              >
+                {item.name}
+              </Link>
+              <span className="portfolio__icon">&#8599;</span>
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+  );
+}

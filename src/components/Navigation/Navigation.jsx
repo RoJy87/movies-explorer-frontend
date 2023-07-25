@@ -1,16 +1,28 @@
 // import { useLocation } from "react-router-dom";
+import React from "react";
 import { classNames } from "../../utils/classNames";
 import { Link } from "react-router-dom";
 import { navLinks } from "../../utils/constants";
 
-function Navigation({ isMenuVisible }) {
-  // const path = useLocation().pathname;
+function Navigation() {
+  const [isMenuVisible, setIsMenuVisible] = React.useState(false);
+
+  const handleClickMenu = () => {
+    setIsMenuVisible(!isMenuVisible);
+  };
 
   return (
-    <div
-      className={classNames("navigation", { navigation_active: isMenuVisible })}
-    >
-      <nav className={`navigation__links`}>
+    <div className={classNames("navigation")}>
+      <nav
+        className={classNames("navigation__links", {
+          navigation__links_active: isMenuVisible,
+        })}
+      >
+        {isMenuVisible && (
+          <Link to={"/"} className="navigation__link link">
+            Главная
+          </Link>
+        )}
         {navLinks.map((navLink) => {
           return (
             <Link
@@ -22,8 +34,18 @@ function Navigation({ isMenuVisible }) {
             </Link>
           );
         })}
+        <Link to={"/profile"} className="navigation__button link">
+          Аккаунт
+        </Link>
       </nav>
-      <button className="navigation__button">Аккаунт</button>
+      <button
+        onClick={handleClickMenu}
+        className={classNames("navigation__burger", { opened: isMenuVisible })}
+      >
+        <span className="bar-top"></span>
+        <span className="bar-mid"></span>
+        <span className="bar-bot"></span>
+      </button>
     </div>
   );
 }

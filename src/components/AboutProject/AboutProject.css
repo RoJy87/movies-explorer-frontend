@@ -73,3 +73,9 @@
   font-weight: 400;
   line-height: normal;
 }
+
+@media (min-width: 768px) {
+  .about__list {
+    flex-direction: row;
+  }
+}

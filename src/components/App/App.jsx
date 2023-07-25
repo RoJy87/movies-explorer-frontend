@@ -1,13 +1,14 @@
 import React from "react";
-import Header from "../Header/Header";
-import Navigation from "../Navigation/Navigation";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import Main from "../Main/Main";
+import Movies from "../Movies/Movies";
+import SavedMovies from "../SavedMovies/SavedMovies";
+import Profile from "../Profile/Profile";
+import { classNames } from "../../utils/classNames";
 
 function App() {
-  const [isMenuVisible, setIsMenuVisible] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [isLoadingButton, setIsLoadingButton] = React.useState(false);
 
@@ -27,21 +28,25 @@ function App() {
     }, 2000);
   };
 
-  const handleClickMenu = () => {
-    setIsMenuVisible(!isMenuVisible);
-  };
-
   return (
     <div className="app">
-      <button onClick={handleLogin}>Login</button>
-      <Header
-        isMenuVisible={isMenuVisible}
-        handleClickMenu={handleClickMenu}
-        loggedIn={loggedIn}
-      />
-      <Navigation isMenuVisible={isMenuVisible} />
+      <button
+        className={classNames("button", {
+          button_login: loggedIn,
+          button_logout: !loggedIn,
+        })}
+        onClick={handleLogin}
+      >
+        {loggedIn ? "I" : "O"}
+      </button>
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Main loggedIn={loggedIn} />} />
+        <Route path="/movies" element={<Movies loggedIn={loggedIn} />} />
+        <Route
+          path="/saved-movies"
+          element={<SavedMovies loggedIn={loggedIn} />}
+        />
+        <Route path="/profile" element={<Profile loggedIn={loggedIn} />} />
         <Route
           path="/signin"
           element={

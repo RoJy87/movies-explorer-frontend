@@ -19,16 +19,12 @@ export const password = "[a-zA-Z0-9!@#$%^&*]{6,16}";
 
 export const navLinks = [
   {
-    title: "Главная",
-    to: "/",
-  },
-  {
     title: "Фильмы",
-    to: "/",
+    to: "/movies",
   },
   {
     title: "Сохраненные фильмы",
-    to: "/",
+    to: "/saved-movies",
   },
 ];
 
@@ -52,3 +48,22 @@ export const techsList = [
   "Express.js",
   "mongoDB",
 ];
+
+export const portfolioList = [
+  {
+    name: "Статичный сайт",
+    adress: "https://rojy87.github.io/how-to-learn/",
+  },
+  {
+    name: "Адаптивный сайт",
+    adress: "https://rojy87.github.io/russian-travel/",
+  },
+  {
+    name: "Одностраничное приложение",
+    adress: "https://rojy87.github.io/react-mesto-auth",
+  },
+];
+
+export const screenWidth = window.screen.availWidth;
+
+export const screenSizeM = 768;
