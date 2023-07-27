@@ -3,7 +3,7 @@ import { aboutProjectList } from "../../utils/constants";
 
 export default function AboutProject() {
   return (
-    <section className="about">
+    <section className="about" id="about">
       <h2 className="title about__title">О проекте</h2>
       <ul className="about__list">
         {aboutProjectList.map((item) => {

@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { useFormAndValidation } from "../../hooks/useFormAndValidation";
-import Form from "../Form/Form";
 import Input from "../Input/Input";
-import { Link } from "react-router-dom";
+import AuthPage from "../AuthPage/AuthPage";
 
-export default function Login({ isLoadingButton, onLogin }) {
+export default function Login({ isLoadingButton }) {
   const [buttonName, setButtonName] = useState("");
 
   useEffect(() => {
-    isLoadingButton ? setButtonName("Вход...") : setButtonName("Войти");
+    isLoadingButton
+      ? setButtonName("Регистрация...")
+      : setButtonName("Зарегистрироваться");
   }, [isLoadingButton]);
 
   function handleSubmit(e) {
@@ -16,22 +16,18 @@ export default function Login({ isLoadingButton, onLogin }) {
   }
 
   return (
-    <Form
-      name="login"
+    <AuthPage
+      title="Добро пожаловать!"
+      name="register"
       onSubmit={handleSubmit}
-      btnName={buttonName}
-      title="Рады видеть!"
+      buttonName={buttonName}
+      linkText="Уже зарегистрированы?"
+      linkName="Войти"
+      linkPath="/signin"
     >
       <Input name="name" type="text" labelName="Имя" required />
       <Input name="email" type="email" labelName="E-mail" required />
       <Input name="password" type="password" labelName="Пароль" required />
-      <button className="form__button button">{buttonName}</button>
-      <span className="text">
-        Уже зарегистрированы?{" "}
-        <Link className="link button" to="/signin">
-          Войти
-        </Link>
-      </span>
-    </Form>
+    </AuthPage>
   );
 }

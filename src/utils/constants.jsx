@@ -15,6 +15,8 @@ export const urlRequest = {
       : "http://localhost:3000/cards",
 };
 
+export const beatFilmsRequest = "https://api.nomoreparties.co/beatfilm-movies";
+
 export const password = "[a-zA-Z0-9!@#$%^&*]{6,16}";
 
 export const navLinks = [

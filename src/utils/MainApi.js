@@ -1,6 +1,6 @@
 import { urlRequest } from "./constants";
 
-class Api {
+class MainApi {
   constructor({ url, headers, credentials }) {
     this._url = url;
     this._headers = headers;
@@ -87,7 +87,7 @@ class Api {
   }
 }
 
-export const api = new Api({
+export const mainApi = new MainApi({
   url: urlRequest,
   credentials: "include",
   headers: {

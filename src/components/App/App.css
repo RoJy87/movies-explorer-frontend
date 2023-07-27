@@ -3,19 +3,27 @@
 }
 
 .button_login {
+  position: absolute;
+  top: 20px;
+  left: 80px;
   width: 30px;
-  padding: 10px;
+  height: 30px;
   border: none;
-  border-radius: 10px;
-  background-color: green;
+  border-radius: 50%;
+  background-color: #3DDC84;
+  z-index: 5;
 }
 
 .button_logout {
+  position: absolute;
+  top: 20px;
+  left: 80px;
   width: 30px;
-  padding: 10px;
+  height: 30px;
   border: none;
-  border-radius: 10px;
+  border-radius: 50%;
   background-color: red;
+  z-index: 5;
 }
 
 #root {
@@ -23,11 +31,13 @@
 }
 
 .app {
+  position: relative;
   max-width: 1280px;
   min-height: 100vh;
   margin: 0 auto 0;
   font-family: Inter, Arial, sans-serif;
   color: #fff;
+  background: #202020;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
@@ -36,8 +46,11 @@
   text-rendering: optimizeLegibility;
 }
 
-.button:hover {
+.button {
   cursor: pointer;
+}
+
+.button:hover {
   opacity: 0.8;
 }
 

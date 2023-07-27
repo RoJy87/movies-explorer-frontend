@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { classNames } from "../../utils/classNames";
-import searc_icon from "../../images/search_icon.png";
 
 export default function SearchForm() {
   const [checked, setChecked] = useState(false);

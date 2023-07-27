@@ -6,6 +6,7 @@
 .navigation__links {
   display: flex;
   position: fixed;
+  padding: 138px 0 0;
   top: 0;
   right: 0;
   background: #202020;
@@ -15,15 +16,16 @@
   z-index: 1;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 10px;
   transition: all cubic-bezier(0.165, 0.84, 0.44, 1) .3s;
   visibility: hidden;
+  opacity: 0;
   transform: translateX(150%);
 }
 
 .navigation__links_active {
   visibility: visible;
+  opacity: 1;
   transform: translateX(0);
 }
 
@@ -42,6 +44,7 @@
 }
 
 .navigation__button {
+  margin: auto 0 46px;
   color: #FFF;
   padding: 8px 20px;
   text-align: center;
@@ -62,6 +65,7 @@
   left: 50%;
   cursor: pointer;
   padding: 10px;
+  margin-top: 10px;
   z-index: 2;
 }
 
@@ -101,6 +105,21 @@
 }
 
 @media (min-width: 768px) {
+  .navigation__links {
+    padding: 156px 0 0;
+    gap: 12px;
+  }
+
+  .navigation__button {
+    margin: auto 0 90px;
+  }
+
+  .navigation__burger {
+    margin-top: 10px;
+  }
+}
+
+@media (min-width: 1024px) {
   .navigation {
     flex-direction: row;
     justify-content: center;
@@ -141,5 +160,4 @@
   .navigation__burger {
     display: none;
   }
-
 }

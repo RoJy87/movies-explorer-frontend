@@ -6,7 +6,6 @@ import Navigation from "../Navigation/Navigation";
 
 export default function Header({ loggedIn, children }) {
   const path = useLocation().pathname;
-  console.log(loggedIn);
 
   return (
     <header

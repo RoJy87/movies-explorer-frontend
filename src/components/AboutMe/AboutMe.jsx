@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function AboutMe({ name }) {
   return (
-    <section className="about-me">
+    <section className="about-me" id="about-me">
       <h2 className="title about-me__title">Студент</h2>
       <article className="about-me__container">
         <img

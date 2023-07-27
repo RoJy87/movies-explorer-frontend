@@ -1,7 +1,7 @@
 import React from "react";
 import landing__main from "../../images/landing__main.svg";
 
-export default function Promo() {
+export default function Promo({ children }) {
   return (
     <section className="promo">
       <img
@@ -17,7 +17,7 @@ export default function Promo() {
       <p className="promo__text">
         Листайте ниже, чтобы узнать больше про этот проект и его создателя.
       </p>
-      <button className="promo__button">Узнать больше</button>
+      {children}
     </section>
   );
 }

@@ -3,7 +3,7 @@ import { techsList } from "../../utils/constants";
 
 export default function Techs() {
   return (
-    <section className="techs">
+    <section className="techs" id="techs">
       <h2 className="title techs__title">Технологии</h2>
       <h3 className="techs__subtitle">7 технологий</h3>
       <p className="techs__text text_primary">

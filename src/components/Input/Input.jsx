@@ -1,15 +1,22 @@
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-export default function Input({ name, type, labelName, ...otherProps }) {
+export default function Input({
+  name,
+  type,
+  labelName,
+  className,
+  ...otherProps
+}) {
   const { values, handleChange, errors, isValid } = useFormAndValidation();
-  console.log(isValid);
 
   return (
-    <label className="label">
+    <label for={`input-${name}`} className={`label ${className}__label`}>
       {labelName}
       <input
         id={`input-${name}`}
-        className={`input input_value_${name} ${!isValid && "input__error"}`}
+        className={`input ${className}__input input_value_${name} ${
+          !isValid && "input__error"
+        }`}
         type={type}
         name={name}
         minLength="2"

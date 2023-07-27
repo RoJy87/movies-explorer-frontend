@@ -6,12 +6,15 @@ import AboutMe from "../AboutMe/AboutMe";
 import Portfolio from "../Portfolio/Portfolio";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
+import NavTab from "../NavTab/NavTab";
 
 export default function Main(props) {
   return (
     <div className="main">
       <Header loggedIn={props.loggedIn} />
-      <Promo />
+      <Promo>
+        <NavTab />
+      </Promo>
       <AboutProject />
       <Techs />
       <AboutMe />

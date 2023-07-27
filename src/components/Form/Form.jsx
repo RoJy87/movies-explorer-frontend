@@ -1,15 +1,15 @@
-export default function Form(props) {
+export default function Form({ name, onSubmit, buttonName, children }) {
   return (
     <form
       action="/"
       className="form"
-      id={`form-${props.name}`}
-      name={`${props.name}`}
+      id={`form-${name}`}
+      name={`${name}`}
       noValidate
-      onSubmit={props.onSubmit}
+      onSubmit={onSubmit}
     >
-      <h2 className="form__header">{`${props.title}`}</h2>
-      {props.children}
+      {children}
+      <button className="form__button button">{buttonName}</button>
     </form>
   );
 }

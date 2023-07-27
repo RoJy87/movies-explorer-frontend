@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { useFormAndValidation } from "../../hooks/useFormAndValidation";
-import Form from "../Form/Form";
 import Input from "../Input/Input";
-import { Link } from "react-router-dom";
+import AuthPage from "../AuthPage/AuthPage";
 
-export default function Login({ isLoadingButton, onLogin }) {
+export default function Login({ isLoadingButton }) {
   const [buttonName, setButtonName] = useState("");
 
   useEffect(() => {
@@ -16,21 +14,17 @@ export default function Login({ isLoadingButton, onLogin }) {
   }
 
   return (
-    <Form
+    <AuthPage
+      title="Рады видеть!"
       name="login"
       onSubmit={handleSubmit}
-      btnName={buttonName}
-      title="Рады видеть!"
+      buttonName={buttonName}
+      linkText="Ещё не зарегистрированы?"
+      linkName="Регистрация"
+      linkPath="/signup"
     >
       <Input name="email" type="email" labelName="E-mail" required />
       <Input name="password" type="password" labelName="Пароль" required />
-      <button className="form__button button">{buttonName}</button>
-      <span className="text">
-        Ещё не зарегистрированы?{" "}
-        <Link className="link button" to="/signup">
-          Регистрация
-        </Link>
-      </span>
-    </Form>
+    </AuthPage>
   );
 }

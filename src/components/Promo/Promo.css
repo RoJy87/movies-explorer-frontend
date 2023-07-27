@@ -29,16 +29,3 @@
 .promo__img {
   margin-top: 70px;
 }
-
-.promo__button {
-  margin: 80px 0 30px;
-  border-radius: 3px;
-  border: 1px solid #FFF;
-  opacity: 0.6;
-  color: #FFF;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 16px;
-  background-color: transparent;
-  padding: 10px 20px;
-}
