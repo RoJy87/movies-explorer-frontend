@@ -43,26 +43,31 @@ export default function MoviesCardList({ movies, handleSaveCard, handleRemoveCar
 
   return (
     <section className="movies-cards" aria-label="Трейлеры фильмов">
-      <ul className="movies-cards__list">
-        {cardsForShow.map((movie) => {
-          return (
-            <MoviesCard
-              movie={movie}
-              key={Math.random() + Date.now()}
-              handleSaveCard={handleSaveCard}
-              handleRemoveCard={handleRemoveCard}
-              isFavorite={JSON.parse(localStorage.getItem('favorites').includes(String(movie.id)))}
-            />
-          );
-        })}
-      </ul>
+      {movies.length ? (
+        <ul className="movies-cards__list">
+          {cardsForShow.map((movie) => {
+            return (
+              <MoviesCard
+                movie={movie}
+                key={Math.random() + Date.now()}
+                handleSaveCard={handleSaveCard}
+                handleRemoveCard={handleRemoveCard}
+                isFavorite={JSON.parse(
+                  localStorage.getItem('favorites').includes(String(movie.id))
+                )}
+              />
+            );
+          })}
+        </ul>
+      ) : (
+        <p className="text_primary">Ничего не найдено!</p>
+      )}
       {
         <button
           onClick={onAddCard}
           className={`button movies-cards__button ${
             movies <= cardsForShow && 'movies-cards__button_hidden'
-          }`}
-        >
+          }`}>
           Ещё
         </button>
       }
