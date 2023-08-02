@@ -2,7 +2,7 @@
 
 [Ссылка на GHpages](https://rojy87.github.io/movies-explorer-frontend/)
 
-[Ссылка на Макет](https://drive.google.com/file/d/1jBH_4oSVl9e1b28_Yn3oCF8ymPxl03B-/view?usp=sharing)
+[Ссылка на Макет](https://www.figma.com/file/vAwEPKplz6KNd86xHVA5gc/Diploma-Simon?type=design&node-id=41457%3A42146&mode=dev)
 
 Сервис поиска фильмов.
 
