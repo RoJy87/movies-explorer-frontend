@@ -2,6 +2,8 @@
 
 [Ссылка на GHpages](https://rojy87.github.io/movies-explorer-frontend/)
 
+[Ссылка на Макет](https://drive.google.com/file/d/1jBH_4oSVl9e1b28_Yn3oCF8ymPxl03B-/view?usp=sharing)
+
 Сервис поиска фильмов.
 
 ### Представлены:
