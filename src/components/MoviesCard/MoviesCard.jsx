@@ -29,22 +29,26 @@ export default function MoviesCard({ movie, handleSaveCard, handleRemoveCard, is
         {path === '/saved-movies' ? (
           <button
             className="button movies-card__button movies-card__button_type_close"
-            onClick={handleRemove}></button>
+            onClick={handleRemove}
+          ></button>
         ) : isCardFavorite ? (
           <button
             onClick={handleRemove}
-            className="button movies-card__button movies-card__button_type_saved"></button>
+            className="button movies-card__button movies-card__button_type_saved"
+          ></button>
         ) : (
           <button
             onClick={handleSave}
-            className="button movies-card__button movies-card__button_type_normal"></button>
+            className="button movies-card__button movies-card__button_type_normal"
+          ></button>
         )}
       </div>
       <Link
         to={movie.trailerLink}
         className="movies-card__img-button link"
         target="_blanck"
-        rel="noopener noreferrer">
+        rel="noopener noreferrer"
+      >
         <img
           className="movies-card__img"
           src={`https://api.nomoreparties.co/${movie.image.url}`}

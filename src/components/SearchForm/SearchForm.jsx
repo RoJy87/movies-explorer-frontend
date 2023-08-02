@@ -1,9 +1,4 @@
-import { useState } from 'react';
-import { classNames } from '../../utils/classNames';
-
 export default function SearchForm({ children }) {
-  const [checked, setChecked] = useState(false);
-
   return (
     <section className="search-form">
       <div className="search-form__container">

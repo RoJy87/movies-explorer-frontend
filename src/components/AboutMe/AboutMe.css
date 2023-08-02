@@ -51,6 +51,8 @@
   color: #fff;
 }
 
+/* ----- Разрешение 768px ------ */
+
 @media (width >= 768px) {
   .about-me {
     padding: 90px 50px 27px;
@@ -98,6 +100,8 @@
     margin-top: auto;
   }
 }
+
+/* ----- Разрешение 1024px ------ */
 
 @media (width >= 1024px) {
   .about-me {

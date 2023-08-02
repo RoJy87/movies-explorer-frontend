@@ -7,7 +7,8 @@ export default function FilterCheckbox() {
     <label
       className={classNames('checkbox', { checked: checked })}
       htmlFor="short-film"
-      onChange={() => setChecked(!checked)}>
+      onChange={() => setChecked(!checked)}
+    >
       <input type="checkbox" name="short-film" id="short-film" className="checkbox__input" />{' '}
       Короткометражки
     </label>

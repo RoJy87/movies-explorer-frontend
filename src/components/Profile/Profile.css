@@ -24,7 +24,6 @@
   display: flex;
   align-items: baseline;
   width: 100%;
-  height: 46px;
 }
 
 .profile-form__underlinne {
@@ -33,34 +32,56 @@
 }
 
 .profile-form__title {
+  flex: 1;
   display: block;
 
   width: 100%;
-  height: 46px;
   margin: 0;
 
   font-size: 11px;
   font-weight: 500;
-  line-height: normal;
 }
 
 .profile-form__label {
+  flex: 3;
   gap: 0;
 }
 
 .profile-form__input {
+  width: 100%;
+  height: 46px;
   width: inherit;
   color: #fff;
-  text-align: right;
-  border: 1px solid;
+  text-align: left;
+  background: transparent;
+  border: none;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.profile-form__input:focus {
+  border-right: 2px solid #fff;
+  padding: 5px 10px;
+  outline: none;
 }
 
 .profile-form__input:disabled {
+  text-align: right;
   background: none;
   border: none;
 }
 
-.profile-form__button {
+.profile-form__input-error {
+  display: none;
+}
+
+.profile__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.profile__edit-btn {
   margin-top: auto;
 
   font-size: 12px;
@@ -84,6 +105,8 @@
   border: none;
 }
 
+/* ----- Разрешение 768px ------ */
+
 @media (width >= 768px) {
   .profile {
     padding: 236px 179px 269px;
@@ -92,7 +115,17 @@
   .profile__title {
     margin: 0 0 80px;
   }
+
+  .profile__edit-btn {
+    font-size: 13px;
+  }
+
+  .profile__logout-btn {
+    font-size: 13px;
+  }
 }
+
+/* ----- Разрешение 1024px ------ */
 
 @media (width >= 1024px) {
   .profile {

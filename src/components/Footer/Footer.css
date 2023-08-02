@@ -51,6 +51,8 @@
   text-align: center;
 }
 
+/* ----- Разрешение 768px ------ */
+
 @media (width >= 768px) {
   .footer {
     padding: 57px 30px 20px 20px;
@@ -87,6 +89,8 @@
     color: #fff;
   }
 }
+
+/* ----- Разрешение 1024px ------ */
 
 @media (width >= 1024px) {
   .footer {

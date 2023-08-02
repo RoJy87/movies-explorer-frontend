@@ -27,13 +27,11 @@ export default function Form({
       onSubmit={onSubmit}
     >
       {children}
-      <button
-        type="submit"
-        className={`form__button ${className && className + '__button'} button`}
-        disabled={!isFormValid}
-      >
-        {buttonName}
-      </button>
+      {isButton && (
+        <button type="submit" className="form__button button" disabled={!isFormValid}>
+          {buttonName}
+        </button>
+      )}
     </form>
   );
 }

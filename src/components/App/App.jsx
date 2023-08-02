@@ -19,6 +19,7 @@ function App() {
   const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false);
   const [successful, setSuccessful] = useState(false);
 
+  // eslint-disable-next-line no-unused-vars
   const [currentUser, setCurrentUser] = useState({
     name: 'Данил',
     email: 'pochta@yandex.ru',
@@ -66,6 +67,7 @@ function App() {
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn, path]);
 
   const handleSaveCard = (movie) => {
@@ -85,18 +87,21 @@ function App() {
   };
 
   const handleAuth = () => {
-    setIsLoadingButton(true);
-    setTimeout(() => {
-      if (localStorage.getItem('user')) {
+    if (localStorage.getItem('user')) {
+      setTimeout(() => {
         localStorage.clear();
         setLoggedIn(false);
-      } else {
+        navigate('/', { replace: true });
+      }, 2000);
+    } else {
+      setIsLoadingButton(true);
+      setTimeout(() => {
         localStorage.setItem('user', JSON.stringify(currentUser));
         setLoggedIn(true);
-      }
-      navigate('/', { replace: true });
-      setIsLoadingButton(false);
-    }, 2000);
+        navigate('/', { replace: true });
+        setIsLoadingButton(false);
+      }, 2000);
+    }
   };
 
   const handleRegister = () => {
@@ -126,7 +131,8 @@ function App() {
             button_login: loggedIn,
             button_logout: !loggedIn
           })}
-          onClick={handleAuth}>
+          onClick={handleAuth}
+        >
           {loggedIn ? 'I' : 'O'}
         </button>
         <Routes>
@@ -154,7 +160,13 @@ function App() {
           />
           <Route
             path="/profile"
-            element={<Profile loggedIn={loggedIn} isLoadingButton={isLoadingButton} />}
+            element={
+              <Profile
+                loggedIn={loggedIn}
+                isLoadingButton={isLoadingButton}
+                onHandleLogout={handleAuth}
+              />
+            }
           />
           <Route
             path="/signin"

@@ -6,11 +6,11 @@
 }
 
 .movies-cards__list {
-  display: flex;
-  flex-direction: column;
   gap: 15px;
-  align-items: center;
-  justify-content: space-between;
+
+  display: grid;
+  grid-template-columns: 300px;
+  justify-content: center;
 
   padding: 0;
 
@@ -37,15 +37,16 @@
   opacity: 0;
 }
 
+/* ----- Разрешение 768px ------ */
+
 @media (width >= 768px) {
   .movies-cards {
     padding: 65px 30px;
   }
 
   .movies-cards__list {
-    flex-flow: row wrap;
+    grid-template-columns: repeat(auto-fit, 339px);
     gap: 37px 15px;
-    justify-content: flex-start;
   }
 
   .movies-cards__button {
@@ -53,12 +54,15 @@
   }
 }
 
+/* ----- Разрешение 1024px ------ */
+
 @media (width >= 1024px) {
   .movies-cards {
     padding: 70px;
   }
 
   .movies-cards__list {
+    grid-template-columns: repeat(auto-fit, 364px);
     gap: 30px 16px;
   }
 }

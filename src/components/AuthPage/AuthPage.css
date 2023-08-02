@@ -34,6 +34,8 @@
   color: #4285f4;
 }
 
+/* ----- Разрешение 768px ------ */
+
 @media (width >= 768px) {
   .auth {
     align-items: flex-start;
@@ -53,6 +55,8 @@
     font-size: 14px;
   }
 }
+
+/* ----- Разрешение 1024px ------ */
 
 @media (width >= 1024px) {
   .auth {

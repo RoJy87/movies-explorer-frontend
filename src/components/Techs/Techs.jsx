@@ -1,5 +1,5 @@
 import React from 'react';
-import { techsList } from '../../utils/constants';
+import { techsList } from '../../utils/contentData';
 
 export default function Techs() {
   return (

@@ -83,6 +83,8 @@
   object-fit: cover;
 }
 
+/* ----- Разрешение 768px ------ */
+
 @media (width >= 768px) {
   .movies-card {
     width: 339px;
@@ -93,6 +95,8 @@
     height: 190px;
   }
 }
+
+/* ----- Разрешение 1024px ------ */
 
 @media (width >= 1024px) {
   .movies-card {

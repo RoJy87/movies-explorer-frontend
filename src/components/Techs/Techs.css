@@ -54,6 +54,8 @@
   }
 }
 
+/* ----- Разрешение 768px ------ */
+
 @media (width >= 768px) {
   .techs {
     padding: 90px 50px;
@@ -84,7 +86,9 @@
   }
 }
 
-@media (width >= 768px) {
+/* ----- Разрешение 1024px ------ */
+
+@media (width >= 1024px) {
   .techs {
     padding: 100px 70px;
   }

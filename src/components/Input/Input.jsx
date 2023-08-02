@@ -10,13 +10,11 @@ export default function Input({
   ...otherProps
 }) {
   return (
-    <label htmlFor={`input-${name}`} className={`label ${className}__label`}>
+    <label htmlFor={`input-${name}`} className={`label ${className ? className + '__label' : ''}`}>
       {labelName}
       <input
         id={`input-${name}`}
-        className={`input ${className}__input input_value_${name} ${
-          !isInputValid && 'input__error'
-        }`}
+        className={`input ${className ? className + '__input' : ''} `}
         type={type}
         name={name}
         minLength="2"
@@ -25,7 +23,13 @@ export default function Input({
         onChange={onChange}
         {...otherProps}
       />
-      <span className={`${name}-input-error input__error`}>{errors[name]}</span>
+      <span
+        className={`input-error 
+        ${className ? className + '__input-error' : ''} 
+        ${!isInputValid ? 'input-error_visible' : ''}`}
+      >
+        {errors[name]}
+      </span>
     </label>
   );
 }

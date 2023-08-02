@@ -36,6 +36,7 @@ export function useFormAndValidation(inputValues = {}) {
     resetForm,
     setValues,
     setInputIsValid,
+    setFormIsValid,
     setErrors
   };
 }

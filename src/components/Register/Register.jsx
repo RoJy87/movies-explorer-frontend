@@ -21,7 +21,8 @@ export default function Login({ isLoadingButton, onRegister }) {
       isFormValid={isFormValid}
       loadingBtn="Регистрация..."
       loadedBtn="Зарегистрироваться"
-      isLoadingButton={isLoadingButton}>
+      isLoadingButton={isLoadingButton}
+    >
       <Input
         name="name"
         type="text"

@@ -53,11 +53,15 @@
   color: #fff;
 }
 
+/* ----- Разрешение 768px ------ */
+
 @media (width >= 768px) {
   .navtab {
     margin: 90px 0 0;
   }
 }
+
+/* ----- Разрешение 1024px ------ */
 
 @media (width >= 1024px) {
   .navtab {

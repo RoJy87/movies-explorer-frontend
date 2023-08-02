@@ -1,8 +1,8 @@
 // import { useLocation } from "react-router-dom";
 import React, { useEffect, useRef } from 'react';
 import { classNames } from '../../utils/classNames';
-import { Link, useLocation } from 'react-router-dom';
-import { navLinks } from '../../utils/constants';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { navLinks } from '../../utils/contentData';
 import { useClickOutside } from '../../hooks/useClickOutside';
 
 function Navigation() {
@@ -31,15 +31,26 @@ function Navigation() {
         })}
       >
         {isMenuVisible && (
-          <Link to={'/'} className="navigation__link link">
+          <NavLink
+            to={'/'}
+            className={({ isActive }) =>
+              isActive ? 'navigation__link link navigation__link_active' : 'navigation__link link'
+            }
+          >
             Главная
-          </Link>
+          </NavLink>
         )}
         {navLinks.map((navLink) => {
           return (
-            <Link key={Date.now() + Math.random()} to={navLink.to} className={`navigation__link`}>
+            <NavLink
+              key={Date.now() + Math.random()}
+              to={navLink.to}
+              className={({ isActive }) =>
+                isActive ? 'navigation__link link navigation__link_active' : 'navigation__link link'
+              }
+            >
               {navLink.title}
-            </Link>
+            </NavLink>
           );
         })}
         <Link to={'/profile'} className="navigation__button link">

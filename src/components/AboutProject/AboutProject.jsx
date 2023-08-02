@@ -1,5 +1,5 @@
 import React from 'react';
-import { aboutProjectList } from '../../utils/constants';
+import { aboutProjectList } from '../../utils/contentData';
 
 export default function AboutProject() {
   return (

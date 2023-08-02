@@ -5,7 +5,7 @@ import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Form from '../Form/Form';
 
-export default function Profiile({ loggedIn, isLoadingButton }) {
+export default function Profile({ loggedIn, isLoadingButton, onHandleLogout }) {
   const currentUser = useContext(CurrentUserContext);
   const [isInputActive, setIsInputActive] = useState(true);
   const [isButton, setIsButton] = useState(false);
@@ -33,7 +33,6 @@ export default function Profiile({ loggedIn, isLoadingButton }) {
         <Form
           name="profile"
           className="profile-form"
-          id="profile-form"
           onSubmit={handleSubmit}
           isFormValid={isFormValid}
           loadingBtn="Сохранение..."
@@ -44,11 +43,9 @@ export default function Profiile({ loggedIn, isLoadingButton }) {
           <div className="profile-form__container">
             <h3 className="profile-form__title">Имя</h3>
             <Input
-              form="profile-form"
               className="profile-form"
               name="name"
               type="text"
-              placeholder={values.name}
               required
               disabled={isInputActive}
               values={values}
@@ -61,11 +58,9 @@ export default function Profiile({ loggedIn, isLoadingButton }) {
           <div className="profile-form__container">
             <h3 className="profile-form__title">E-mail</h3>
             <Input
-              form="profile-form"
               className="profile-form"
               name="email"
               type="email"
-              placeholder={values.email}
               required
               disabled={isInputActive}
               values={values}
@@ -75,7 +70,16 @@ export default function Profiile({ loggedIn, isLoadingButton }) {
             />
           </div>
         </Form>
-        <button className="profile__logout-btn">Выйти из аккаунта</button>
+        {isInputActive && (
+          <div className="profile__buttons">
+            <button className="profile__edit-btn button" onClick={handleSubmit}>
+              Редактировать
+            </button>
+            <button className="profile__logout-btn button" onClick={onHandleLogout}>
+              Выйти из аккаунта
+            </button>
+          </div>
+        )}
       </section>
     </>
   );

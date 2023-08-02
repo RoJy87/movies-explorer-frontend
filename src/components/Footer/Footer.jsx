@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { classNames } from '../../utils/classNames';
 
 export default function Footer() {
   const path = useLocation().pathname;
   const date = new Date();
 
   return (
-    <footer className={`footer ${path === '/movies' && 'footer_page_movies'}`}>
+    <footer className={classNames('footer', { footer_page_movies: path === '/movies' })}>
       <h2 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h2>
       <div className="footer__container">
         <div className="footer__links">

@@ -50,6 +50,8 @@
   justify-content: space-between;
 }
 
+/* ----- Разрешение 768px ------ */
+
 @media (width >= 768px) {
   .header {
     padding: 18px 30px;
@@ -70,6 +72,8 @@
     font-size: 12px;
   }
 }
+
+/* ----- Разрешение 1024px ------ */
 
 @media (width >= 1024px) {
   .header {

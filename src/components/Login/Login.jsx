@@ -21,7 +21,8 @@ export default function Login({ isLoadingButton, onLogin }) {
       isFormValid={isFormValid}
       loadingBtn="Вход..."
       loadedBtn="Войти"
-      isLoadingButton={isLoadingButton}>
+      isLoadingButton={isLoadingButton}
+    >
       <Input
         name="email"
         type="email"

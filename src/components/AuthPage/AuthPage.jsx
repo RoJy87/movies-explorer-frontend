@@ -26,6 +26,8 @@ export default function AuthPage({
         loadingBtn={loadingBtn}
         loadedBtn={loadedBtn}
         isLoadingButton={isLoadingButton}
+        isButton="true"
+        className={name}
       >
         {children}
       </Form>

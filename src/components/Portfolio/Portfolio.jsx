@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { portfolioList } from '../../utils/constants';
+import { portfolioList } from '../../utils/contentData';
 
 export default function Portfolio() {
   return (

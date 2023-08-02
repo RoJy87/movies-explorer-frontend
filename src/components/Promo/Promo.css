@@ -48,6 +48,8 @@
   margin-top: 40px;
 }
 
+/* ----- Разрешение 768px ------ */
+
 @media (width >= 768px) {
   .promo {
     padding: 76px 44px;
@@ -70,6 +72,8 @@
     width: 260px;
   }
 }
+
+/* ----- Разрешение 1024px ------ */
 
 @media (width >= 1024px) {
   .promo {

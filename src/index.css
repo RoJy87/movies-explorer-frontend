@@ -47,12 +47,14 @@
 /* authorization */
 
 @import url('./components/AuthPage/AuthPage.css');
-@import url('./components/Login/Login.css');
-@import url('./components/Register/Register.css');
 
 /* Popup */
 
 @import url('./components/InfoTooltip/InfoTooltip.css');
+
+/* Popup */
+
+@import url('./components/Preloader/Preloader.css');
 
 /* not-found */
 
