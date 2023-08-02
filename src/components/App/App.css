@@ -2,49 +2,59 @@
   box-sizing: border-box;
 }
 
+/* Временная кнопка логина для удобства */
+
 .button_login {
   position: absolute;
-  top: 20px;
-  left: 80px;
+  z-index: 5;
+  top: 80px;
+  left: 30px;
+
   width: 30px;
   height: 30px;
+
+  background-color: #3ddc84;
   border: none;
   border-radius: 50%;
-  background-color: #3DDC84;
-  z-index: 5;
 }
 
 .button_logout {
   position: absolute;
-  top: 20px;
-  left: 80px;
+  z-index: 5;
+  top: 80px;
+  left: 30px;
+
   width: 30px;
   height: 30px;
+
+  background-color: red;
   border: none;
   border-radius: 50%;
-  background-color: red;
-  z-index: 5;
 }
 
 #root {
-  background-color: #000;
+  background-color: #202020;
 }
 
 .app {
   position: relative;
+
   max-width: 1280px;
   min-height: 100vh;
-  margin: 0 auto 0;
+  margin: 0 auto;
+
   font-family: Inter, Arial, sans-serif;
   color: #fff;
+  text-size-adjust: 100%;
+  text-rendering: optimizelegibility;
+
   background: #202020;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
-  -moz-text-size-adjust: 100%;
-  text-rendering: optimizeLegibility;
 }
+
+/* Общие стили для кнопки */
 
 .button {
   cursor: pointer;
@@ -54,28 +64,51 @@
   opacity: 0.8;
 }
 
+.button:disabled {
+  opacity: 0.2;
+}
+
+/* Заголовки блоков в Promo */
+
 .title {
-  color: #FFF;
   font-size: 18px;
   font-weight: 400;
+  color: #fff;
   letter-spacing: -0.72px;
 }
 
+@media (width >= 768px) {
+  .title {
+    font-size: 22px;
+    letter-spacing: -0.88px;
+  }
+}
+
+/* Основоной текст в Promo */
+
 .text_primary {
-  color: #FFF;
-  text-align: center;
   font-size: 11px;
   font-weight: 400;
   line-height: 16px;
+  color: #fff;
+  text-align: center;
 }
 
-.text_secondary {
-  color: #8B8B8B;
-  text-align: center;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 15px;
+@media (width >= 768px) {
+  .text_primary {
+    font-size: 12px;
+    line-height: 18px;
+  }
 }
+
+@media (width >= 1024px) {
+  .text_primary {
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
+
+/* Общие стили для ссылки */
 
 .link {
   text-decoration: none;

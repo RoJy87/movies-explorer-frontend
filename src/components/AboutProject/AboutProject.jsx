@@ -1,5 +1,5 @@
-import React from "react";
-import { aboutProjectList } from "../../utils/constants";
+import React from 'react';
+import { aboutProjectList } from '../../utils/constants';
 
 export default function AboutProject() {
   return (
@@ -17,9 +17,7 @@ export default function AboutProject() {
       </ul>
       <div className="about__timeline">
         <div className="about__timeline-cell">
-          <p className="about__timeline-title about__timeline-title_colored">
-            1 неделя
-          </p>
+          <p className="about__timeline-title about__timeline-title_colored">1 неделя</p>
           <span className="about__timeline-text">Back-end</span>
         </div>
         <div className="about__timeline-cell">

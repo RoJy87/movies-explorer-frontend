@@ -1,4 +1,4 @@
-import { urlRequest } from "./constants";
+import { urlRequest } from './constants';
 
 class MainApi {
   constructor({ url, headers, credentials }) {
@@ -18,32 +18,32 @@ class MainApi {
   getUserInfo() {
     return fetch(`${this._url.userUrl}`, {
       credentials: this._credentials,
-      headers: this._headers,
+      headers: this._headers
     }).then(this._checkResponse);
   }
 
   // заменить данные пользователя (PATCH)
   setUserInfo(body) {
     return fetch(`${this._url.userUrl}`, {
-      method: "PATCH",
+      method: 'PATCH',
       credentials: this._credentials,
       headers: this._headers,
       body: JSON.stringify({
         name: body.name,
-        about: body.about,
-      }),
+        about: body.about
+      })
     }).then(this._checkResponse);
   }
 
   // заменить аватар (PATCH)
   setUserAvatar(body) {
     return fetch(`${this._url.changeAvatarUrl}`, {
-      method: "PATCH",
+      method: 'PATCH',
       credentials: this._credentials,
       headers: this._headers,
       body: JSON.stringify({
-        avatar: body.avatar,
-      }),
+        avatar: body.avatar
+      })
     }).then(this._checkResponse);
   }
 
@@ -51,46 +51,46 @@ class MainApi {
   getItems() {
     return fetch(`${this._url.cardsUrl}`, {
       credentials: this._credentials,
-      headers: this._headers,
+      headers: this._headers
     }).then(this._checkResponse);
   }
 
   // добавить карточку (POST)
   setItems(body) {
     return fetch(`${this._url.cardsUrl}`, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({
         name: body.name,
-        link: body.link,
+        link: body.link
       }),
       credentials: this._credentials,
-      headers: this._headers,
+      headers: this._headers
     }).then(this._checkResponse);
   }
 
   // удалить карточку (DELETE)
   deleteCard(id) {
     return fetch(`${this._url.cardsUrl}/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
       credentials: this._credentials,
-      headers: this._headers,
+      headers: this._headers
     }).then(this._checkResponse);
   }
 
   // “залайкать” карточку
   changeLikeCardStatus(id, isLiked) {
     return fetch(`${this._url.cardsUrl}/${id}/likes`, {
-      method: `${isLiked ? "DELETE" : "PUT"}`,
+      method: `${isLiked ? 'DELETE' : 'PUT'}`,
       credentials: this._credentials,
-      headers: this._headers,
+      headers: this._headers
     }).then(this._checkResponse);
   }
 }
 
 export const mainApi = new MainApi({
   url: urlRequest,
-  credentials: "include",
+  credentials: 'include',
   headers: {
-    "Content-Type": "application/json",
-  },
+    'Content-Type': 'application/json'
+  }
 });

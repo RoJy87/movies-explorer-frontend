@@ -1,42 +1,47 @@
 .navigation {
-  height: 100%;
   display: flex;
+  height: 100%;
 }
 
 .navigation__links {
-  display: flex;
   position: fixed;
-  padding: 138px 0 0;
+  z-index: 1;
   top: 0;
   right: 0;
-  background: #202020;
-  max-width: 520px;
-  width: 100%;
-  height: 100vh;
-  z-index: 1;
+  transform: translateX(150%);
+
+  display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 10px;
-  transition: all cubic-bezier(0.165, 0.84, 0.44, 1) .3s;
+  align-items: center;
+
+  width: 100%;
+  max-width: 520px;
+  height: 100vh;
+  padding: 138px 0 0;
+
   visibility: hidden;
   opacity: 0;
-  transform: translateX(150%);
+  background: #202020;
+
+  transition: all cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s;
 }
 
 .navigation__links_active {
+  transform: translateX(0);
   visibility: visible;
   opacity: 1;
-  transform: translateX(0);
 }
 
 .navigation__link {
   padding: 7px;
-  text-decoration: none;
-  color: #FFF;
-  text-align: center;
+
   font-size: 18px;
   font-weight: 500;
   line-height: 22px;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
 }
 
 .navigation__link:hover {
@@ -45,41 +50,45 @@
 
 .navigation__button {
   margin: auto 0 46px;
-  color: #FFF;
   padding: 8px 20px;
-  text-align: center;
+
   font-size: 14px;
   font-weight: 500;
   line-height: 16px;
+  color: #fff;
+  text-align: center;
+
   background-color: #313131;
   border: none;
   border-radius: 20px;
 }
 
 .navigation__burger {
+  cursor: pointer;
+
+  z-index: 2;
+
   width: 40px;
   height: 40px;
+  padding: 10px;
+
   background: transparent;
   border: none;
-  top: 50%;
-  left: 50%;
-  cursor: pointer;
-  padding: 10px;
-  margin-top: 10px;
-  z-index: 2;
 }
 
 .navigation__burger [class*='bar-'] {
-  background: #fff;
-  display: block;
-  -webkit-transform: rotate(0deg);
   transform: rotate(0deg);
-  -webkit-transition: .2s ease all;
-  transition: .2s ease all;
-  border-radius: 2px;
-  height: 3px;
+
+  display: block;
+
   width: 20px;
+  height: 3px;
   margin-bottom: 6px;
+
+  background: #fff;
+  border-radius: 2px;
+
+  transition: 0.2s ease all;
 }
 
 .bar-bot {
@@ -87,10 +96,8 @@
 }
 
 .opened .bar-top {
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-  -webkit-transform-origin: 15% 15%;
   transform-origin: 83% 230%;
+  transform: rotate(45deg);
 }
 
 .opened .bar-mid {
@@ -98,63 +105,64 @@
 }
 
 .opened .bar-bot {
-  -webkit-transform: rotate(45deg);
-  transform: rotate(-45deg);
-  -webkit-transform-origin: 15% 95%;
   transform-origin: -60% -530%;
+  transform: rotate(-45deg);
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .navigation__links {
-    padding: 156px 0 0;
     gap: 12px;
+    padding: 156px 0 0;
   }
 
   .navigation__button {
     margin: auto 0 90px;
   }
 
-  .navigation__burger {
-    margin-top: 10px;
+  .navigation__burger [class*='bar-'] {
+  }
+
+  .opened .bar-top {
+    transform-origin: 5% 440%;
+  }
+
+  .opened .bar-bot {
+    transform-origin: 16% -300%;
   }
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
   .navigation {
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: 1;
-    padding: 0;
+    flex: 1;
   }
 
   .navigation__links {
-    display: flex;
     position: relative;
-    background: none;
-    max-width: 100%;
-    width: 100%;
-    height: 100%;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 10px;
-    visibility: visible;
     transform: none;
+
+    flex-direction: row;
+    gap: 10px;
+    justify-content: flex-end;
+
+    max-width: 100%;
+    height: 100%;
+    padding: 0;
+
+    visibility: visible;
+    opacity: 1;
+    background-color: transparent;
   }
 
   .navigation__link {
-    color: #FFF;
-    text-align: right;
     font-size: 14px;
     font-weight: 500;
     line-height: 18px;
+    color: #fff;
+    text-align: right;
   }
 
-  .navigation__link:last-child {
-    margin-right: 50px;
+  .navigation__button {
+    margin: 0 0 0 35px;
   }
 
   .navigation__burger {

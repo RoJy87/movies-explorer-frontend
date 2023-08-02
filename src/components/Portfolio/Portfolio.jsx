@@ -1,7 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import arrow from "../../images/arrow_icon.png";
-import { portfolioList } from "../../utils/constants";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { portfolioList } from '../../utils/constants';
 
 export default function Portfolio() {
   return (
@@ -11,11 +10,7 @@ export default function Portfolio() {
         {portfolioList.map((item) => {
           return (
             <li className="portfolio__item" key={Date.now() + Math.random()}>
-              <Link
-                className="portfolio__link link"
-                to={item.adress}
-                target="_blank"
-              >
+              <Link className="portfolio__link link" to={item.adress} target="_blank">
                 {item.name}
               </Link>
               <span className="portfolio__icon">&#8599;</span>

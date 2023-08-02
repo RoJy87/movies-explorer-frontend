@@ -1,4 +1,4 @@
-import { beatFilmsRequest as url } from "./constants";
+import { beatFilmsRequest as url } from './constants';
 
 class MoviesApi {
   constructor({ url, headers, credentials }) {
@@ -16,17 +16,17 @@ class MoviesApi {
 
   // получить список всех карточек в виде массива (GET)
   getItems() {
-    return fetch(`${this._url}?_limit=8`, {
+    return fetch(`${this._url}?_limit=13`, {
       // credentials: this._credentials,
-      headers: this._headers,
+      headers: this._headers
     }).then(this._checkResponse);
   }
 }
 
 export const moviesApi = new MoviesApi({
   url,
-  credentials: "include",
+  credentials: 'include',
   headers: {
-    "Content-Type": "application/json",
-  },
+    'Content-Type': 'application/json'
+  }
 });

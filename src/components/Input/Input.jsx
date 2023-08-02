@@ -1,28 +1,28 @@
-import { useFormAndValidation } from "../../hooks/useFormAndValidation";
-
 export default function Input({
   name,
   type,
   labelName,
   className,
+  isInputValid,
+  values,
+  errors,
+  onChange,
   ...otherProps
 }) {
-  const { values, handleChange, errors, isValid } = useFormAndValidation();
-
   return (
-    <label for={`input-${name}`} className={`label ${className}__label`}>
+    <label htmlFor={`input-${name}`} className={`label ${className}__label`}>
       {labelName}
       <input
         id={`input-${name}`}
         className={`input ${className}__input input_value_${name} ${
-          !isValid && "input__error"
+          !isInputValid && 'input__error'
         }`}
         type={type}
         name={name}
         minLength="2"
         maxLength="30"
-        value={values[name]}
-        onChange={handleChange}
+        value={values[name] || ''}
+        onChange={onChange}
         {...otherProps}
       />
       <span className={`${name}-input-error input__error`}>{errors[name]}</span>

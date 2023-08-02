@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { classNames } from "../../utils/classNames";
+import { useState } from 'react';
+import { classNames } from '../../utils/classNames';
 
-export default function SearchForm() {
+export default function SearchForm({ children }) {
   const [checked, setChecked] = useState(false);
 
   return (
@@ -17,14 +17,8 @@ export default function SearchForm() {
           />
           <button className="search-form__button button"></button>
         </label>
-        <label
-          className={classNames("checkbox", { checked: checked })}
-          htmlFor="checkbox"
-          onChange={() => setChecked(!checked)}
-        >
-          <input type="checkbox" name="short-film" id="checkbox" />{" "}
-          Короткометражки
-        </label>
+        <div className="search-form__line"></div>
+        {children}
       </div>
     </section>
   );

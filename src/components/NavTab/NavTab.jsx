@@ -1,13 +1,13 @@
-import React, { useState, useRef } from "react";
-import { classNames } from "../../utils/classNames";
-import { useClickOutside } from "../../hooks/useClickOutside";
+import React, { useState, useRef } from 'react';
+import { classNames } from '../../utils/classNames';
+import { useClickOutside } from '../../hooks/useClickOutside';
 
 export default function NavTab() {
   const [isActive, setIsActive] = useState(false);
   const navRef = useRef(null);
 
   useClickOutside(navRef, () => {
-    if (isActive) setTimeout(() => setIsActive(false), 50);
+    if (isActive) setTimeout(() => setIsActive(false), 500);
   });
 
   const onClickNavTab = () => {
@@ -21,8 +21,8 @@ export default function NavTab() {
       </button>
       <nav
         ref={navRef}
-        className={classNames("navtab__list", {
-          navtab__list_active: isActive,
+        className={classNames('navtab__list', {
+          navtab__list_active: isActive
         })}
       >
         <a href="#about" className="navtab__link">

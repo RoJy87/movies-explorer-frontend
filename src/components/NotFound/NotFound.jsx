@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function NotFound() {
   return (
@@ -8,7 +8,7 @@ export default function NotFound() {
         <h2 className="notfound__title">404</h2>
         <p className="notfound__text">Страница не найдена</p>
       </div>
-      <Link className="notfound_link link" to={"/"}>
+      <Link className="notfound_link link" to={'/'}>
         Назад
       </Link>
     </section>

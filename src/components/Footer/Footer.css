@@ -1,14 +1,23 @@
 .footer {
-  padding: 79px 10px 20px;
+  width: 100%;
+  padding: 40px 10px 20px;
+}
+
+.footer_page_movies {
+  padding-top: 67px;
 }
 
 .footer__title {
-  color: #8B8B8B;
-  text-align: center;
-  font-feature-settings: 'clig' off, 'liga' off;
+  padding-bottom: 42px;
+
   font-size: 12px;
+  font-feature-settings:
+    'clig' off,
+    'liga' off;
   font-weight: 400;
-  padding-bottom: 20px;
+  color: #8b8b8b;
+  text-align: center;
+
   border-bottom: 1px solid;
 }
 
@@ -17,21 +26,74 @@
   flex-direction: column;
   gap: 12px;
   align-items: center;
-  padding-bottom: 20px;
+
+  padding-bottom: 30px;
 }
 
 .footer__link {
-  color: #FFF;
-  font-feature-settings: 'clig' off, 'liga' off;
   font-size: 12px;
+  font-feature-settings:
+    'clig' off,
+    'liga' off;
   font-weight: 400;
+  color: #fff;
 }
 
 .footer__copyright {
   margin: 0;
-  text-align: center;
-  color: #8B8B8B;
-  font-feature-settings: 'clig' off, 'liga' off;
+
   font-size: 12px;
+  font-feature-settings:
+    'clig' off,
+    'liga' off;
   font-weight: 400;
+  color: #8b8b8b;
+  text-align: center;
+}
+
+@media (width >= 768px) {
+  .footer {
+    padding: 57px 30px 20px 20px;
+  }
+
+  .footer_page_movies {
+    padding-top: 79px;
+    padding-left: 35px;
+  }
+
+  .footer__container {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+  }
+
+  .footer__title {
+    padding-bottom: 15px;
+    font-size: 13px;
+  }
+
+  .footer__links {
+    flex-direction: row;
+    gap: 20px;
+    padding-bottom: 0;
+  }
+
+  .footer__link {
+    font-size: 13px;
+  }
+
+  .footer__copyright {
+    order: -1;
+    color: #fff;
+  }
+}
+
+@media (width >= 1024px) {
+  .footer {
+    padding: 45px 55px 20px 70px;
+  }
+
+  .footer_page_movies {
+    padding-top: 71px;
+  }
 }

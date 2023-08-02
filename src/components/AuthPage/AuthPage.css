@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
   height: 100vh;
   padding: 30px;
 }
@@ -12,22 +13,28 @@
 
 .auth__title {
   margin: 0 0 80px;
-  text-align: center;
+
   font-size: 24px;
   font-weight: 500;
   line-height: normal;
+  text-align: center;
 }
 
 .auth__text {
   margin-top: 14px;
-  color: #8B8B8B;
-  text-align: center;
+
   font-size: 12px;
   font-weight: 400;
   line-height: normal;
+  color: #8b8b8b;
+  text-align: center;
 }
 
-@media (min-width: 768px) {
+.auth__link {
+  color: #4285f4;
+}
+
+@media (width >= 768px) {
   .auth {
     align-items: flex-start;
     padding: 232px 186px;
@@ -42,11 +49,12 @@
   }
 
   .auth__text {
-    align-self: center
+    align-self: center;
+    font-size: 14px;
   }
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
   .auth {
     padding: 70px 442px;
   }
