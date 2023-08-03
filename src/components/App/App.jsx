@@ -126,15 +126,6 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
-        <button
-          className={classNames('button', {
-            button_login: loggedIn,
-            button_logout: !loggedIn
-          })}
-          onClick={handleAuth}
-        >
-          {loggedIn ? 'I' : 'O'}
-        </button>
         <Routes>
           <Route path="/" element={<Main loggedIn={loggedIn} />} />
           <Route

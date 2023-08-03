@@ -13,8 +13,8 @@ export default function AboutMe() {
         <img src={my_foto} alt="Моя фотография" className="about-me__foto" />
         <div className="about-me__info">
           <h3 className="about-me__name">{currentUser.name}</h3>
-          <h4 className="about-me__subtitle text_primary">Фронтенд-разработчик, 36 лет</h4>
-          <p className="about-me__text text_primary">
+          <h4 className="about-me__subtitle text-primary">Фронтенд-разработчик, 36 лет</h4>
+          <p className="about-me__text text-primary">
             Я живу в Краснодаре, закончил факультет Социальных наук ИГЛУ. У меня есть жена и два
             сына. Я люблю слушать музыку, а ещё увлекаюсь велосипедом. Недавно начал кодить. С 2016
             года работал в компании «Астра Зенека». После того, как прошёл курс по веб-разработке,

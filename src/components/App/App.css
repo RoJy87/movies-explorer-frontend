@@ -2,36 +2,6 @@
   box-sizing: border-box;
 }
 
-/* Временная кнопка логина для удобства */
-
-.button_login {
-  position: absolute;
-  z-index: 5;
-  top: 80px;
-  left: 30px;
-
-  width: 30px;
-  height: 30px;
-
-  background-color: #3ddc84;
-  border: none;
-  border-radius: 50%;
-}
-
-.button_logout {
-  position: absolute;
-  z-index: 5;
-  top: 80px;
-  left: 30px;
-
-  width: 30px;
-  height: 30px;
-
-  background-color: red;
-  border: none;
-  border-radius: 50%;
-}
-
 #root {
   background-color: #202020;
 }
@@ -87,7 +57,7 @@
 
 /* Основоной текст в Promo */
 
-.text_primary {
+.text-primary {
   font-size: 11px;
   font-weight: 400;
   line-height: 16px;
@@ -96,14 +66,14 @@
 }
 
 @media (width >= 768px) {
-  .text_primary {
+  .text-primary {
     font-size: 12px;
     line-height: 18px;
   }
 }
 
 @media (width >= 1024px) {
-  .text_primary {
+  .text-primary {
     font-size: 14px;
     line-height: 22px;
   }

@@ -60,7 +60,7 @@ export default function MoviesCardList({ movies, handleSaveCard, handleRemoveCar
           })}
         </ul>
       ) : (
-        <p className="text_primary">Ничего не найдено!</p>
+        <p className="text-primary">Ничего не найдено!</p>
       )}
       {
         <button
