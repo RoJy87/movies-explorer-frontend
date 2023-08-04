@@ -3,12 +3,16 @@
   flex-direction: column;
   align-items: center;
 
-  height: 100vh;
+  width: 100%;
+  max-width: 396px;
+  min-height: 100vh;
   padding: 30px;
 }
 
 .auth__logo {
   margin: 26px 0 50px;
+  width: 38px;
+  height: 38px;
 }
 
 .auth__title {
@@ -18,6 +22,10 @@
   font-weight: 500;
   line-height: normal;
   text-align: center;
+}
+
+.auth-form {
+  flex: 1;
 }
 
 .auth__text {
@@ -39,7 +47,7 @@
 @media (width >= 768px) {
   .auth {
     align-items: flex-start;
-    padding: 232px 186px;
+    padding: 233px 0;
   }
 
   .auth__logo {
@@ -60,6 +68,6 @@
 
 @media (width >= 1024px) {
   .auth {
-    padding: 70px 442px;
+    padding: 68px 0;
   }
 }

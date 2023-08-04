@@ -7,6 +7,7 @@ export default function Input({
   values,
   errors,
   onChange,
+  children,
   ...otherProps
 }) {
   return (
@@ -23,13 +24,7 @@ export default function Input({
         onChange={onChange}
         {...otherProps}
       />
-      <span
-        className={`input-error 
-        ${className ? className + '__input-error' : ''} 
-        ${!isInputValid ? 'input-error_visible' : ''}`}
-      >
-        {errors[name]}
-      </span>
+      {errors}
     </label>
   );
 }

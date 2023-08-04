@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: space-between;
 
-  max-width: 100%;
+  width: 100%;
   height: 74px;
   margin: 0 auto;
   padding: 18px 14px;
@@ -77,6 +77,6 @@
 
 @media (width >= 1024px) {
   .header {
-    padding: 18px 55px 18px 70px;
+    padding: 18px 70px 18px;
   }
 }

@@ -83,4 +83,8 @@
   .portfolio {
     padding: 0 55px 130px 70px;
   }
+
+  .portfolio__title {
+    padding-bottom: 56px;
+  }
 }

@@ -24,7 +24,7 @@
 
 .techs__list {
   display: grid;
-  grid-template-columns: 84px 84px;
+  grid-template-columns: repeat(2, minmax(84px, max-content));
   gap: 10px;
   justify-content: center;
 
@@ -46,12 +46,6 @@
 
   background: #303030;
   border-radius: 10px;
-}
-
-@media (width >= 420px) {
-  .techs__list {
-    grid-template-columns: repeat(3, 84px);
-  }
 }
 
 /* ----- Разрешение 768px ------ */
@@ -76,8 +70,7 @@
   }
 
   .techs__list {
-    display: flex;
-    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(84px, max-content));
     margin: 85px 0 0;
   }
 
@@ -99,7 +92,7 @@
 
   .techs__list {
     gap: 12px;
-    margin: 104px 0 0;
+    margin: 99px 0 0;
   }
 
   .techs__item {

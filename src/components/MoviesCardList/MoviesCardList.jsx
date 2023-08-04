@@ -11,7 +11,7 @@ export default function MoviesCardList({ movies, handleSaveCard, handleRemoveCar
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const resizeWindow = () => {
-    setWindowWidth(window.innerWidth);
+    setTimeout(() => setWindowWidth(window.innerWidth), 500);
   };
 
   useEffect(() => {
@@ -40,6 +40,7 @@ export default function MoviesCardList({ movies, handleSaveCard, handleRemoveCar
   const onAddCard = () => {
     setCardsForShow(movies.slice(0, cardsForShow.length + CardsQtyNext));
   };
+  console.log(cardsForShow);
 
   return (
     <section className="movies-cards" aria-label="Трейлеры фильмов">
@@ -52,9 +53,7 @@ export default function MoviesCardList({ movies, handleSaveCard, handleRemoveCar
                 key={Math.random() + Date.now()}
                 handleSaveCard={handleSaveCard}
                 handleRemoveCard={handleRemoveCard}
-                isFavorite={JSON.parse(
-                  localStorage.getItem('favorites').includes(String(movie.id))
-                )}
+                isFavorite={localStorage.getItem('favorites').includes(movie.id)}
               />
             );
           })}

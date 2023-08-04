@@ -10,7 +10,7 @@ import NavTab from '../NavTab/NavTab';
 
 export default function Main(props) {
   return (
-    <div className="main">
+    <main className="main">
       <Header loggedIn={props.loggedIn} />
       <Promo>
         <NavTab />
@@ -20,6 +20,6 @@ export default function Main(props) {
       <AboutMe />
       <Portfolio />
       <Footer />
-    </div>
+    </main>
   );
 }

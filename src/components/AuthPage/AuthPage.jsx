@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 export default function AuthPage({
   title,
   name,
+  className,
   onSubmit,
   linkText,
   linkName,
@@ -17,7 +18,9 @@ export default function AuthPage({
 }) {
   return (
     <section className="auth">
-      <img src={logo} alt="Логотип" className="auth__logo" width={38} height={38} />
+      <Link to={'/'} className="auth__link link">
+        <img src={logo} alt="Логотип сайта" className="auth__logo" />
+      </Link>
       <h2 className="auth__title">{title}</h2>
       <Form
         name={name}
@@ -27,8 +30,7 @@ export default function AuthPage({
         loadedBtn={loadedBtn}
         isLoadingButton={isLoadingButton}
         isButton="true"
-        className={name}
-      >
+        className="auth-form">
         {children}
       </Form>
       <span className="auth__text">

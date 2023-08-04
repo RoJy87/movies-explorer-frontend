@@ -9,7 +9,7 @@ export default function Profile({ loggedIn, isLoadingButton, onHandleLogout }) {
   const currentUser = useContext(CurrentUserContext);
   const [isInputActive, setIsInputActive] = useState(true);
   const [isButton, setIsButton] = useState(false);
-  const { values, handleChange, errors, isInputValid, isFormValid } = useFormAndValidation({
+  const { values, handleChange, isFormValid } = useFormAndValidation({
     name: currentUser.name,
     email: currentUser.email
   });
@@ -29,20 +29,19 @@ export default function Profile({ loggedIn, isLoadingButton, onHandleLogout }) {
     <>
       <Header loggedIn={loggedIn} />
       <section className="profile">
-        <h2 className="profile__title">Привет, {values.name}!</h2>
-        <Form
-          name="profile"
-          className="profile-form"
-          onSubmit={handleSubmit}
-          isFormValid={isFormValid}
-          loadingBtn="Сохранение..."
-          loadedBtn={!isInputActive ? 'Сохранить' : 'Редактировать'}
-          isLoadingButton={isLoadingButton}
-          isButton={isButton}
-        >
-          <div className="profile-form__container">
-            <h3 className="profile-form__title">Имя</h3>
+        <div className="profile__container">
+          <h2 className="profile__title">Привет, {values.name}!</h2>
+          <Form
+            name="profile"
+            className="profile-form"
+            onSubmit={handleSubmit}
+            isFormValid={isFormValid}
+            loadingBtn="Сохранение..."
+            loadedBtn={!isInputActive ? 'Сохранить' : 'Редактировать'}
+            isLoadingButton={isLoadingButton}
+            isButton={isButton}>
             <Input
+              labelName="Имя"
               className="profile-form"
               name="name"
               type="text"
@@ -50,14 +49,9 @@ export default function Profile({ loggedIn, isLoadingButton, onHandleLogout }) {
               disabled={isInputActive}
               values={values}
               onChange={handleChange}
-              errors={errors}
-              isInputValid={isInputValid}
             />
-          </div>
-          <div className="profile-form__underlinne"></div>
-          <div className="profile-form__container">
-            <h3 className="profile-form__title">E-mail</h3>
             <Input
+              labelName="E-mail"
               className="profile-form"
               name="email"
               type="email"
@@ -65,21 +59,19 @@ export default function Profile({ loggedIn, isLoadingButton, onHandleLogout }) {
               disabled={isInputActive}
               values={values}
               onChange={handleChange}
-              errors={errors}
-              isInputValid={isInputValid}
             />
-          </div>
-        </Form>
-        {isInputActive && (
-          <div className="profile__buttons">
-            <button className="profile__edit-btn button" onClick={handleSubmit}>
-              Редактировать
-            </button>
-            <button className="profile__logout-btn button" onClick={onHandleLogout}>
-              Выйти из аккаунта
-            </button>
-          </div>
-        )}
+          </Form>
+          {isInputActive && (
+            <div className="profile__buttons">
+              <button className="profile__edit-btn button" onClick={handleSubmit}>
+                Редактировать
+              </button>
+              <button className="profile__logout-btn button" onClick={onHandleLogout}>
+                Выйти из аккаунта
+              </button>
+            </div>
+          )}
+        </div>
       </section>
     </>
   );

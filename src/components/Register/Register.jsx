@@ -21,37 +21,48 @@ export default function Login({ isLoadingButton, onRegister }) {
       isFormValid={isFormValid}
       loadingBtn="Регистрация..."
       loadedBtn="Зарегистрироваться"
-      isLoadingButton={isLoadingButton}
-    >
+      isLoadingButton={isLoadingButton}>
       <Input
+        className="register"
         name="name"
         type="text"
         labelName="Имя"
         required
         values={values}
         onChange={handleChange}
-        errors={errors}
-        isInputValid={isInputValid}
+        errors={
+          <span className={`input-error ${!isInputValid ? 'input-error_visible' : ''}`}>
+            {errors.name}
+          </span>
+        }
       />
       <Input
+        className="register"
         name="email"
         type="email"
         labelName="E-mail"
         required
         values={values}
         onChange={handleChange}
-        errors={errors}
-        isInputValid={isInputValid}
+        errors={
+          <span className={`input-error ${!isInputValid ? 'input-error_visible' : ''}`}>
+            {errors.email}
+          </span>
+        }
       />
       <Input
+        className="register"
         name="password"
         type="password"
         labelName="Пароль"
         required
         values={values}
         onChange={handleChange}
-        errors={errors}
-        isInputValid={isInputValid}
+        errors={
+          <span className={`input-error ${!isInputValid ? 'input-error_visible' : ''}`}>
+            {errors.password}
+          </span>
+        }
       />
     </AuthPage>
   );

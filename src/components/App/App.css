@@ -9,7 +9,13 @@
 .app {
   position: relative;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+
   max-width: 1280px;
+  width: 100%;
   min-height: 100vh;
   margin: 0 auto;
 
@@ -22,21 +28,6 @@
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-/* Общие стили для кнопки */
-
-.button {
-  cursor: pointer;
-  transition: opacity 0.5s ease;
-}
-
-.button:hover {
-  opacity: 0.8;
-}
-
-.button:disabled {
-  opacity: 0.2;
 }
 
 /* Заголовки блоков в Promo */
@@ -77,6 +68,21 @@
     font-size: 14px;
     line-height: 22px;
   }
+}
+
+/* Общие стили для кнопки */
+
+.button {
+  cursor: pointer;
+  transition: opacity 0.5s ease;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.button:disabled {
+  opacity: 0.2;
 }
 
 /* Общие стили для ссылки */

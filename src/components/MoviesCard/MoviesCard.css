@@ -3,7 +3,6 @@
   flex-direction: column;
   gap: 14px;
 
-  width: 300px;
   height: 236px;
 }
 
@@ -87,7 +86,6 @@
 
 @media (width >= 768px) {
   .movies-card {
-    width: 339px;
     height: 258px;
   }
 
@@ -100,7 +98,6 @@
 
 @media (width >= 1024px) {
   .movies-card {
-    width: 364px;
     height: 271px;
   }
 

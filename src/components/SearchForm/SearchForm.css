@@ -43,7 +43,8 @@
 }
 
 .search-form__input:focus {
-  outline-width: 0;
+  outline: 1px solid #4285f4;
+  border-radius: 10px;
 }
 
 .search-form__input:focus::placeholder {

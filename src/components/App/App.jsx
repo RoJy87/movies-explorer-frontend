@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { moviesApi } from '../../utils/MoviesApi';
-import { classNames } from '../../utils/classNames';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -33,13 +32,19 @@ function App() {
     localStorage.getItem('user') ? setLoggedIn(true) : setLoggedIn(false);
   }, [loggedIn]);
 
+  console.log(!localStorage.getItem('movies'));
+
   useEffect(() => {
     if (loggedIn) {
-      if (path === '/movies' && !localStorage.getItem('movies')) {
+      if (!localStorage.getItem('movies')) {
+        console.log('сервер');
         moviesApi
           .getItems()
           .then((data) => {
             setMovies(data);
+            return data;
+          })
+          .then((data) => {
             localStorage.setItem('movies', JSON.stringify(data));
             localStorage.setItem(
               'favorites',
@@ -48,15 +53,14 @@ function App() {
           })
           .catch((err) => console.log(err));
       }
-      if ((path === '/movies' || path === '/saved-movies') && localStorage.getItem('movies')) {
+      if (!!localStorage.getItem('movies')) {
+        console.log('локал');
         const moviesList = JSON.parse(localStorage.getItem('movies'));
         setMovies(moviesList);
-        if (localStorage.getItem('favorites')) {
+        if (!!localStorage.getItem('favorites')) {
           const favoritesList = JSON.parse(localStorage.getItem('favorites'));
           console.log(favoritesList);
-          const favoriteMoviesList = moviesList.filter((movie) =>
-            favoritesList.includes(movie.id.toString())
-          );
+          const favoriteMoviesList = moviesList.filter((movie) => favoritesList.includes(movie.id));
           console.log(favoriteMoviesList);
           setFavoriteMovies(favoriteMoviesList);
         } else {
@@ -72,7 +76,7 @@ function App() {
 
   const handleSaveCard = (movie) => {
     const favoritesList = JSON.parse(localStorage.getItem('favorites'));
-    localStorage.setItem('favorites', JSON.stringify([...favoritesList, movie.id.toString()]));
+    localStorage.setItem('favorites', JSON.stringify([...favoritesList, movie.id]));
     setFavoriteMovies([...favoriteMovies, movie]);
   };
 
@@ -82,7 +86,7 @@ function App() {
     const favoritesList = JSON.parse(localStorage.getItem('favorites'));
     localStorage.setItem(
       'favorites',
-      JSON.stringify(favoritesList.filter((id) => id !== movie.id.toString()))
+      JSON.stringify(favoritesList.filter((id) => id !== movie.id))
     );
   };
 

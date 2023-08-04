@@ -21,27 +21,34 @@ export default function Login({ isLoadingButton, onLogin }) {
       isFormValid={isFormValid}
       loadingBtn="Вход..."
       loadedBtn="Войти"
-      isLoadingButton={isLoadingButton}
-    >
+      isLoadingButton={isLoadingButton}>
       <Input
+        className="login"
         name="email"
         type="email"
         labelName="E-mail"
         required
         values={values}
         onChange={handleChange}
-        errors={errors}
-        isInputValid={isInputValid}
+        errors={
+          <span className={`input-error ${!isInputValid ? 'input-error_visible' : ''}`}>
+            {errors.email}
+          </span>
+        }
       />
       <Input
+        className="login"
         name="password"
         type="password"
         labelName="Пароль"
         required
         values={values}
         onChange={handleChange}
-        errors={errors}
-        isInputValid={isInputValid}
+        errors={
+          <span className={`input-error ${!isInputValid ? 'input-error_visible' : ''}`}>
+            {errors.password}
+          </span>
+        }
       />
     </AuthPage>
   );

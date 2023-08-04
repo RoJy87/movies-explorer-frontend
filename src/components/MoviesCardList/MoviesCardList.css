@@ -9,7 +9,7 @@
   gap: 15px;
 
   display: grid;
-  grid-template-columns: 300px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 364px));
   justify-content: center;
 
   padding: 0;
@@ -45,7 +45,7 @@
   }
 
   .movies-cards__list {
-    grid-template-columns: repeat(auto-fit, 339px);
+    grid-template-columns: repeat(2, 339px);
     gap: 37px 15px;
   }
 
@@ -58,11 +58,11 @@
 
 @media (width >= 1024px) {
   .movies-cards {
-    padding: 70px;
+    padding: 67px 70px 73px;
   }
 
   .movies-cards__list {
-    grid-template-columns: repeat(auto-fit, 364px);
-    gap: 30px 16px;
+    grid-template-columns: repeat(3, 364px);
+    gap: 30px 24px;
   }
 }
