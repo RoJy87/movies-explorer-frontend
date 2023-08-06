@@ -18,27 +18,29 @@ export default function AuthPage({
 }) {
   return (
     <section className="auth">
-      <Link to={'/'} className="auth__link link">
-        <img src={logo} alt="Логотип сайта" className="auth__logo" />
-      </Link>
-      <h2 className="auth__title">{title}</h2>
-      <Form
-        name={name}
-        onSubmit={onSubmit}
-        isFormValid={isFormValid}
-        loadingBtn={loadingBtn}
-        loadedBtn={loadedBtn}
-        isLoadingButton={isLoadingButton}
-        isButton="true"
-        className="auth-form">
-        {children}
-      </Form>
-      <span className="auth__text">
-        {linkText}{' '}
-        <Link className="auth__link link button" to={linkPath}>
-          {linkName}
+      <div className="auth__container">
+        <Link to={'/'} className="auth__link link">
+          <img src={logo} alt="Логотип сайта" className="auth__logo" />
         </Link>
-      </span>
+        <h2 className="auth__title">{title}</h2>
+        <Form
+          name={name}
+          onSubmit={onSubmit}
+          isFormValid={isFormValid}
+          loadingBtn={loadingBtn}
+          loadedBtn={loadedBtn}
+          isLoadingButton={isLoadingButton}
+          isButton="true"
+          className="auth-form">
+          {children}
+        </Form>
+        <span className="auth__text">
+          {linkText}{' '}
+          <Link className="auth__link link button" to={linkPath}>
+            {linkName}
+          </Link>
+        </span>
+      </div>
     </section>
   );
 }

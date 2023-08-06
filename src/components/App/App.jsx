@@ -32,12 +32,9 @@ function App() {
     localStorage.getItem('user') ? setLoggedIn(true) : setLoggedIn(false);
   }, [loggedIn]);
 
-  console.log(!localStorage.getItem('movies'));
-
   useEffect(() => {
     if (loggedIn) {
       if (!localStorage.getItem('movies')) {
-        console.log('сервер');
         moviesApi
           .getItems()
           .then((data) => {
@@ -48,20 +45,17 @@ function App() {
             localStorage.setItem('movies', JSON.stringify(data));
             localStorage.setItem(
               'favorites',
-              JSON.stringify(favoriteMovies.map((movie) => movie.id))
+              JSON.stringify(data.map((movie) => movie.id).filter((id) => id < 4))
             );
           })
           .catch((err) => console.log(err));
       }
       if (!!localStorage.getItem('movies')) {
-        console.log('локал');
         const moviesList = JSON.parse(localStorage.getItem('movies'));
         setMovies(moviesList);
         if (!!localStorage.getItem('favorites')) {
           const favoritesList = JSON.parse(localStorage.getItem('favorites'));
-          console.log(favoritesList);
           const favoriteMoviesList = moviesList.filter((movie) => favoritesList.includes(movie.id));
-          console.log(favoriteMoviesList);
           setFavoriteMovies(favoriteMoviesList);
         } else {
           localStorage.setItem(

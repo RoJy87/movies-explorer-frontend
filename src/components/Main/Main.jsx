@@ -10,16 +10,18 @@ import NavTab from '../NavTab/NavTab';
 
 export default function Main(props) {
   return (
-    <main className="main">
+    <>
       <Header loggedIn={props.loggedIn} />
-      <Promo>
-        <NavTab />
-      </Promo>
-      <AboutProject />
-      <Techs />
-      <AboutMe />
-      <Portfolio />
+      <main className="main">
+        <Promo>
+          <NavTab />
+        </Promo>
+        <AboutProject />
+        <Techs />
+        <AboutMe />
+        <Portfolio />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

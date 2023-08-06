@@ -16,7 +16,7 @@ class MoviesApi {
 
   // получить список всех карточек в виде массива (GET)
   getItems() {
-    return fetch(`${this._url}?_limit=13`, {
+    return fetch(`${this._url}`, {
       // credentials: this._credentials,
       headers: this._headers
     }).then(this._checkResponse);

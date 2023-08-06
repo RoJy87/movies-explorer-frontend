@@ -26,6 +26,10 @@
   border-radius: 8px;
 }
 
+.input::placeholder {
+  padding-left: 10px;
+}
+
 .input:focus {
   padding: 5px 10px;
   outline: 1px solid #4285f4;

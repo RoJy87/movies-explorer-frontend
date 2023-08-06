@@ -40,7 +40,6 @@ export default function MoviesCardList({ movies, handleSaveCard, handleRemoveCar
   const onAddCard = () => {
     setCardsForShow(movies.slice(0, cardsForShow.length + CardsQtyNext));
   };
-  console.log(cardsForShow);
 
   return (
     <section className="movies-cards" aria-label="Трейлеры фильмов">

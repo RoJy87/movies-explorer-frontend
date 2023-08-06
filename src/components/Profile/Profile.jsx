@@ -28,7 +28,7 @@ export default function Profile({ loggedIn, isLoadingButton, onHandleLogout }) {
   return (
     <>
       <Header loggedIn={loggedIn} />
-      <section className="profile">
+      <main className="profile">
         <div className="profile__container">
           <h2 className="profile__title">Привет, {values.name}!</h2>
           <Form
@@ -42,6 +42,7 @@ export default function Profile({ loggedIn, isLoadingButton, onHandleLogout }) {
             isButton={isButton}>
             <Input
               labelName="Имя"
+              placeholder="Введите Имя..."
               className="profile-form"
               name="name"
               type="text"
@@ -52,6 +53,7 @@ export default function Profile({ loggedIn, isLoadingButton, onHandleLogout }) {
             />
             <Input
               labelName="E-mail"
+              placeholder="Введите E-mail..."
               className="profile-form"
               name="email"
               type="email"
@@ -72,7 +74,7 @@ export default function Profile({ loggedIn, isLoadingButton, onHandleLogout }) {
             </div>
           )}
         </div>
-      </section>
+      </main>
     </>
   );
 }

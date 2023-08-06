@@ -2,11 +2,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: stretch;
 
   width: 100%;
   max-width: 396px;
-  min-height: 100vh;
   padding: 30px;
+}
+
+.auth__container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 720px;
+  padding: 0;
 }
 
 .auth__logo {
@@ -47,7 +58,14 @@
 @media (width >= 768px) {
   .auth {
     align-items: flex-start;
-    padding: 233px 0;
+    padding: 0;
+  }
+
+  .auth__container {
+    align-items: start;
+    width: 100%;
+    min-height: 563px;
+    margin: 230px 0;
   }
 
   .auth__logo {
@@ -67,7 +85,7 @@
 /* ----- Разрешение 1024px ------ */
 
 @media (width >= 1024px) {
-  .auth {
-    padding: 68px 0;
+  .auth__container {
+    margin: 68px 0;
   }
 }

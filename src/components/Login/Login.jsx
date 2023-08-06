@@ -27,6 +27,7 @@ export default function Login({ isLoadingButton, onLogin }) {
         name="email"
         type="email"
         labelName="E-mail"
+        placeholder="Введите E-mail..."
         required
         values={values}
         onChange={handleChange}
@@ -41,6 +42,7 @@ export default function Login({ isLoadingButton, onLogin }) {
         name="password"
         type="password"
         labelName="Пароль"
+        placeholder="Введите пароль..."
         required
         values={values}
         onChange={handleChange}
