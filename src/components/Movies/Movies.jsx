@@ -6,8 +6,9 @@ import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 import { Suspense, lazy } from 'react';
 
+const MoviesCardList = lazy(() => import('../MoviesCardList/MoviesCardList'));
+
 export default function Movies({ loggedIn, movies, handleSaveCard, handleRemoveCard }) {
-  const MoviesCardList = lazy(() => import('../MoviesCardList/MoviesCardList'));
   return (
     <>
       <Header loggedIn={loggedIn} />
