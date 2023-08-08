@@ -1,0 +1,167 @@
+.about {
+  padding: 70px 18px;
+}
+
+.about__title {
+  margin: 0;
+  padding-bottom: 27px;
+  border-bottom: solid #dadada 1px;
+}
+
+.about__list {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+
+  padding: 47px 0 0;
+
+  list-style-type: none;
+}
+
+.about__item {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.about__item-title {
+  margin: 0;
+
+  font-size: 18px;
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: -0.72px;
+}
+
+.about__item-text {
+  margin: 0;
+
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #fff;
+}
+
+.about__timeline {
+  display: flex;
+
+  margin-top: 59px;
+  padding: 0;
+
+  font-size: 11px;
+  font-weight: 400;
+  color: #000;
+  text-align: center;
+}
+
+.about__timeline-cell {
+  flex: 1 1 auto;
+}
+
+.about__timeline-cell:nth-child(2) {
+  flex: 7 1 auto;
+}
+
+.about__timeline-title {
+  display: block;
+
+  margin: 0;
+  margin-bottom: 10px;
+  padding: 12px 22px;
+
+  color: #fff;
+
+  background: #303030;
+}
+
+.about__timeline-title_colored {
+  color: #000;
+  background: #3ddc84;
+}
+
+.about__timeline-text {
+  font-size: 11px;
+  font-weight: 400;
+  line-height: normal;
+  color: #a0a0a0;
+}
+
+/* ----- Разрешение 768px ------ */
+
+@media (width >= 768px) {
+  .about {
+    padding: 90px 50px;
+  }
+
+  .about__title {
+    padding-bottom: 24px;
+  }
+
+  .about__list {
+    flex-direction: row;
+    gap: 40px;
+    padding: 54px 0 0;
+  }
+
+  .about__item {
+    gap: 23px;
+  }
+
+  .about__item-title {
+    font-size: 20px;
+    letter-spacing: -0.8px;
+  }
+
+  .about__item-text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .about__timeline {
+    margin-top: 93px;
+    padding: 0;
+    font-size: 14px;
+  }
+
+  .about__timeline-title {
+    margin-bottom: 12px;
+    padding: 10px 9px;
+  }
+
+  .about__timeline-text {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+/* ----- Разрешение 1024px ------ */
+
+@media (width >= 1024px) {
+  .about {
+    padding: 110px 70px;
+  }
+
+  .about__list {
+    gap: 68px;
+  }
+
+  .about__item {
+    gap: 30px;
+  }
+
+  .about__item-text {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .about__timeline {
+    margin-top: 108px;
+    padding: 0;
+    font-size: 14px;
+  }
+
+  .about__timeline-title {
+    margin-bottom: 12px;
+    padding: 11px 29px;
+  }
+}

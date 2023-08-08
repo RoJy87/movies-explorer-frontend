@@ -1,0 +1,94 @@
+.popup {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition:
+    opacity 0.5s linear,
+    visibility 0.5s linear,
+    transform 0s linear 0.5s;
+}
+
+.popup_opened {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.5s linear;
+}
+
+.popup__container {
+  box-sizing: border-box;
+  position: relative;
+  max-width: 282px;
+  width: 100%;
+  padding: 25px 22px;
+  background: #fff;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+.popup__close-btn {
+  background-image: url('../../images/popup__close-btn.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: -36px;
+  right: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.confirm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.confirm__message {
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  color: #000;
+  margin: 0;
+  margin-bottom: 25px;
+}
+
+.confirm__image {
+  width: 120px;
+  height: 120px;
+  margin-top: 25px;
+}
+
+/* ----- Разрешение 768px ------ */
+
+@media (min-width: 768px) {
+  .popup__container {
+    max-width: 430px;
+    padding: 34px 36px 37px;
+  }
+
+  .popup__close-btn {
+    top: -40px;
+    right: -40px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .confirm__message {
+    font-size: 24px;
+    line-height: 29px;
+  }
+}

@@ -1,0 +1,63 @@
+.label {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  padding: 0;
+
+  color: #8b8b8b;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.input {
+  width: 100%;
+  height: 46px;
+  margin-top: 10px;
+
+  color: #fff;
+  font-size: 13px;
+  font-weight: 400;
+
+  background: #2f2f2f;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+}
+
+.input::placeholder {
+  padding-left: 10px;
+}
+
+.input:focus {
+  padding: 5px 10px;
+  outline: 1px solid #4285f4;
+}
+
+/* Чтоб автозаполнение не изменяла фон инпута */
+
+.input:-webkit-autofill {
+  transition: all 5000s ease-in-out;
+}
+
+.input__error {
+  color: #ff0000;
+}
+
+.input-error {
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+  width: 100%;
+  min-height: 20px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.25;
+  color: #ff0000;
+}
+
+.input-error_visible {
+  visibility: visible;
+  opacity: 1;
+}

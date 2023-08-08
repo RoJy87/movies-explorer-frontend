@@ -1,0 +1,139 @@
+.about-me {
+  padding: 70px 14px;
+}
+
+.about-me__title {
+  margin: 0;
+  padding: 0 0 30px;
+  border-bottom: solid #dadada 1px;
+}
+
+.about-me__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-me__foto {
+  width: 292px;
+  height: 352px;
+  margin: 60px auto 10px;
+
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.about-me__name {
+  margin: 30px 0 20px;
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: -1.2px;
+}
+
+.about-me__subtitle {
+  font-feature-settings:
+    'clig' off,
+    'liga' off;
+  font-weight: 500;
+  text-align: left;
+}
+
+.about-me__text {
+  margin: 20px 0 40px;
+  font-feature-settings:
+    'clig' off,
+    'liga' off;
+  text-align: left;
+}
+
+.about-me__link {
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+}
+
+/* ----- Разрешение 768px ------ */
+
+@media (width >= 768px) {
+  .about-me {
+    padding: 90px 50px 27px;
+  }
+
+  .about-me__title {
+    padding: 0 0 23px;
+  }
+
+  .about-me__container {
+    flex-direction: row;
+    gap: 49px;
+    padding: 65px 0;
+  }
+
+  .about-me__info {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    order: -1;
+  }
+
+  .about-me__foto {
+    width: 255px;
+    height: 307px;
+    margin: 0;
+  }
+
+  .about-me__name {
+    margin: 0;
+    font-size: 40px;
+    line-height: 40px;
+    letter-spacing: -1.6px;
+  }
+
+  .about-me__subtitle {
+    margin: 0;
+  }
+
+  .about-me__text {
+    margin: 0;
+  }
+
+  .about-me__link {
+    margin-top: auto;
+  }
+}
+
+/* ----- Разрешение 1024px ------ */
+
+@media (width >= 1024px) {
+  .about-me {
+    padding: 110px 55px 40px 70px;
+  }
+
+  .about-me__foto {
+    width: 270px;
+    height: 327px;
+  }
+
+  .about-me__container {
+    justify-content: space-between;
+    padding: 60px 0;
+  }
+
+  .about-me__info {
+    gap: 24px;
+  }
+
+  .about-me__name {
+    font-size: 50px;
+    line-height: 58px;
+    letter-spacing: -2px;
+  }
+
+  .about-me__subtitle {
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+  .about-me__text {
+    width: 600px;
+  }
+}

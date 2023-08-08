@@ -1,0 +1,70 @@
+.navtab {
+  position: relative;
+  margin: 80px 0 0;
+}
+
+.navtab__list {
+  position: absolute;
+  bottom: 50%;
+  left: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+
+  width: 100%;
+  padding: 20px;
+
+  visibility: hidden;
+  opacity: 0;
+  background: #073042;
+  box-shadow: 0 0 5px #79939e;
+
+  transition: all 0.7s ease-out;
+}
+
+.navtab__list_active {
+  z-index: 5;
+  bottom: 100%;
+  visibility: visible;
+  opacity: 1;
+}
+
+.navtab__button {
+  margin: 0;
+  padding: 10px 20px;
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  color: #fff;
+
+  opacity: 0.6;
+  background-color: transparent;
+  border: 1px solid #fff;
+  border-radius: 3px;
+}
+
+.navtab__link {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px;
+  color: #fff;
+}
+
+/* ----- Разрешение 768px ------ */
+
+@media (width >= 768px) {
+  .navtab {
+    margin: 90px 0 0;
+  }
+}
+
+/* ----- Разрешение 1024px ------ */
+
+@media (width >= 1024px) {
+  .navtab {
+    margin: 145px 0 0;
+  }
+}

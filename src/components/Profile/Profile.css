@@ -1,0 +1,137 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+
+  width: 100%;
+  max-width: 470px;
+  padding: 30px;
+}
+
+.profile__container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 599px;
+  padding: 0;
+  margin: 38px 0 10px;
+}
+
+.profile__title {
+  margin: 0 0 65px;
+
+  font-size: 24px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.profile-form__label {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+
+  min-height: 45px;
+  border-bottom: 1px solid #e8e8e8;
+
+  font-size: 11px;
+  line-height: 13px;
+}
+
+.profile-form__label:last-of-type {
+  border: none;
+  margin-bottom: auto;
+}
+
+.profile-form__input {
+  flex: 1;
+
+  background: transparent;
+  border: none;
+  outline: none;
+
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 40px;
+  text-align: left;
+
+  margin: 0;
+}
+
+.profile-form__input:disabled {
+  text-align: right;
+  background: none;
+  border: none;
+}
+
+.profile__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.profile__edit-btn {
+  margin-top: auto;
+
+  font-size: 12px;
+  font-weight: 400;
+  line-height: normal;
+  color: #fff;
+  text-align: center;
+
+  background-color: transparent;
+  border: none;
+}
+
+.profile__logout-btn {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+  color: #ee3465;
+  text-align: center;
+
+  background-color: transparent;
+  border: none;
+}
+
+/* ----- Разрешение 768px ------ */
+
+@media (width >= 768px) {
+  .profile__title {
+    margin: 0 0 80px;
+  }
+
+  .profile__container {
+    min-height: 445px;
+    margin: 207px 0;
+  }
+
+  .profile__edit-btn {
+    font-size: 13px;
+  }
+
+  .profile__logout-btn {
+    font-size: 13px;
+  }
+}
+
+/* ----- Разрешение 1024px ------ */
+
+@media (width >= 1024px) {
+  .profile__title {
+    margin: 0 0 110px;
+  }
+
+  .profile__container {
+    padding: 0;
+    margin: 42px 0;
+  }
+
+  .profile-form__label:last-of-type {
+    margin-bottom: 200px;
+  }
+}

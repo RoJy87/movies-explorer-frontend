@@ -1,0 +1,99 @@
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  background-color: #202020;
+}
+
+.app {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+
+  max-width: 1280px;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+
+  font-family: Inter, Arial, sans-serif;
+  color: #fff;
+  text-size-adjust: 100%;
+  text-rendering: optimizelegibility;
+
+  background: #202020;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Заголовки блоков в Promo */
+
+.title {
+  font-size: 18px;
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: -0.72px;
+}
+
+@media (width >= 768px) {
+  .title {
+    font-size: 22px;
+    letter-spacing: -0.88px;
+  }
+}
+
+/* Основоной текст в Promo */
+
+.text-primary {
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 16px;
+  color: #fff;
+  text-align: center;
+}
+
+@media (width >= 768px) {
+  .text-primary {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media (width >= 1024px) {
+  .text-primary {
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
+
+/* Общие стили для кнопки */
+
+.button {
+  cursor: pointer;
+  transition: opacity 0.5s ease;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.button:disabled {
+  opacity: 0.2;
+}
+
+/* Общие стили для ссылки */
+
+.link {
+  text-decoration: none;
+  transition: opacity 0.5s ease;
+}
+
+.link:hover {
+  cursor: pointer;
+  opacity: 0.6;
+  text-decoration: none;
+}
