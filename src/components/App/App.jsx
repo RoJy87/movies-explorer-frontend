@@ -9,6 +9,9 @@ import NotFound from '../NotFound/NotFound';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
+import { auth } from '../../utils/Auth';
+import { CREATE_USER_ERROR_CODE } from '../../utils/constants';
+import { mainApi } from '../../utils/MainApi';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -16,65 +19,154 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false);
+  const [tooltipMessage, setTooltipMessage] = useState('');
   const [successful, setSuccessful] = useState(false);
+  const [isInputActive, setIsInputActive] = useState(true);
+  const [isButton, setIsButton] = useState(false);
+  const [isFound, setIsFound] = useState(false);
 
-  // eslint-disable-next-line no-unused-vars
-  const [currentUser, setCurrentUser] = useState({
-    name: 'Данил',
-    email: 'pochta@yandex.ru',
-    id: '12345'
-  });
+  const [currentUser, setCurrentUser] = useState({});
 
   const navigate = useNavigate();
   const path = useLocation().pathname;
 
+  function searchFilter(data, searchText) {
+    return data.filter(
+      (movie) =>
+        movie.nameRU.toLowerCase().includes(searchText) ||
+        movie.nameEN.toLowerCase().includes(searchText)
+    );
+  }
+
+  // User
+
   useEffect(() => {
-    localStorage.getItem('user') ? setLoggedIn(true) : setLoggedIn(false);
+    // const moviesList = JSON.parse(localStorage.getItem('movies'));
+    auth
+      .getAuthInfo()
+      .then((userData) => {
+        setLoggedIn(true);
+        setCurrentUser(userData);
+      })
+      .then(() => {
+        const searchText = JSON.parse(localStorage.getItem('searchText'));
+        handleSearchMovies(searchText);
+      })
+      .catch(({ err, message }) => console.log(message));
   }, [loggedIn]);
 
-  useEffect(() => {
-    if (loggedIn) {
-      if (!localStorage.getItem('movies')) {
-        moviesApi
-          .getItems()
-          .then((data) => {
-            setMovies(data);
-            return data;
-          })
-          .then((data) => {
-            localStorage.setItem('movies', JSON.stringify(data));
-            localStorage.setItem(
-              'favorites',
-              JSON.stringify(data.map((movie) => movie.id).filter((id) => id < 4))
-            );
-          })
-          .catch((err) => console.log(err));
-      }
-      if (!!localStorage.getItem('movies')) {
-        const moviesList = JSON.parse(localStorage.getItem('movies'));
-        setMovies(moviesList);
-        if (!!localStorage.getItem('favorites')) {
-          const favoritesList = JSON.parse(localStorage.getItem('favorites'));
-          const favoriteMoviesList = moviesList.filter((movie) => favoritesList.includes(movie.id));
-          setFavoriteMovies(favoriteMoviesList);
-        } else {
-          localStorage.setItem(
-            'favorites',
-            JSON.stringify(favoriteMovies.map((movie) => movie.id))
-          );
-        }
-      }
+  function handleLogin(values, setValues) {
+    setIsLoadingButton(true);
+    if (!values.password || !values.email) {
+      return;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loggedIn, path]);
+    const { email, password } = values;
+    auth
+      .authorize(email, password)
+      .then((userData) => {
+        const { name, email } = userData;
+        setCurrentUser({ name, email });
+        setLoggedIn(true);
+        navigate('/movies', { replace: true });
+      })
+      .catch(({ err, message }) => {
+        setTooltipMessage('Неправильный логин или пароль'); //TODO либо другая ошибка
+        setSuccessful(false);
+        setInfoTooltipPopupOpen(true);
+        console.log(message);
+      })
+      .finally(() => {
+        setIsLoadingButton(false);
+      });
+  }
 
-  const handleSaveCard = (movie) => {
+  function handleLogout() {
+    auth.logout();
+    setLoggedIn(false);
+    navigate('/signin', { replace: true });
+  }
+
+  const handleRegister = (values) => {
+    setIsLoadingButton(true);
+    const { name, email, password } = values;
+    auth
+      .register(name, email, password)
+      .then(() => {
+        setSuccessful(true);
+        setTooltipMessage('Регистрация прошла успешно');
+        setInfoTooltipPopupOpen(true);
+        navigate('/signin', { replace: true });
+      })
+      .catch(({ err, message }) => {
+        console.log(message);
+        err.status === CREATE_USER_ERROR_CODE
+          ? setTooltipMessage('E-mail занят')
+          : setTooltipMessage('Что-то пошло не так');
+        setSuccessful(false);
+        setInfoTooltipPopupOpen(true);
+      })
+      .finally(() => setIsLoadingButton(false));
+  };
+
+  const handleEditProfile = (e) => {
+    e.preventDefault();
+    setIsInputActive(false);
+    setIsButton(true);
+  };
+
+  const handleUpdateUser = (user) => {
+    setIsLoadingButton(true);
+    mainApi
+      .setUserInfo(user)
+      .then((user) => {
+        setCurrentUser(user);
+        setSuccessful(true);
+        setTooltipMessage('Информация обновлена');
+        setInfoTooltipPopupOpen(true);
+        setIsInputActive(true);
+        setIsButton(false);
+      })
+      .catch(({ err, message }) => {
+        err.status === CREATE_USER_ERROR_CODE
+          ? setTooltipMessage('E-mail занят')
+          : setTooltipMessage('Что-то пошло не так');
+        setSuccessful(false);
+        setInfoTooltipPopupOpen(true);
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoadingButton(false);
+      });
+  };
+
+  // Movies
+
+  const handleSearchMovies = (searchText) => {
+    moviesApi
+      .getItems()
+      .then((data) => {
+        const results = searchFilter(data, searchText);
+        localStorage.clear('searchText');
+        localStorage.setItem('searchText', JSON.stringify(searchText));
+        return results;
+      })
+      .then((data) => {
+        console.log(data);
+        if (data) {
+          setMovies(data);
+          setIsFound(true);
+        }
+      })
+      .catch(({ err, message }) => console.log(message));
+  };
+
+  const handleSaveMovie = (movie) => {
     const favoritesList = JSON.parse(localStorage.getItem('favorites'));
     localStorage.setItem('favorites', JSON.stringify([...favoritesList, movie.id]));
     setFavoriteMovies([...favoriteMovies, movie]);
   };
 
-  const handleRemoveCard = (movie) => {
+  const handleRemoveMovie = (movie) => {
     const favoriteMovie = favoriteMovies.find((item) => item.id === movie.id);
     setFavoriteMovies(favoriteMovies.filter((item) => item.id !== favoriteMovie.id));
     const favoritesList = JSON.parse(localStorage.getItem('favorites'));
@@ -82,39 +174,6 @@ function App() {
       'favorites',
       JSON.stringify(favoritesList.filter((id) => id !== movie.id))
     );
-  };
-
-  const handleAuth = () => {
-    if (localStorage.getItem('user')) {
-      setTimeout(() => {
-        localStorage.clear();
-        setLoggedIn(false);
-        navigate('/', { replace: true });
-      }, 2000);
-    } else {
-      setIsLoadingButton(true);
-      setTimeout(() => {
-        localStorage.setItem('user', JSON.stringify(currentUser));
-        setLoggedIn(true);
-        navigate('/', { replace: true });
-        setIsLoadingButton(false);
-      }, 2000);
-    }
-  };
-
-  const handleRegister = () => {
-    setIsLoadingButton(true);
-    setTimeout(() => {
-      if (Math.random() > 0.5) {
-        setSuccessful(true);
-        setInfoTooltipPopupOpen(true);
-        navigate('/signin', { replace: true });
-        return setIsLoadingButton(false);
-      }
-      setSuccessful(false);
-      setInfoTooltipPopupOpen(true);
-      setIsLoadingButton(false);
-    }, 2000);
   };
 
   function closePopups() {
@@ -132,8 +191,10 @@ function App() {
               <Movies
                 movies={movies}
                 loggedIn={loggedIn}
-                handleSaveCard={handleSaveCard}
-                handleRemoveCard={handleRemoveCard}
+                isFound={isFound}
+                onSaveMovie={handleSaveMovie}
+                onRemoveMovie={handleRemoveMovie}
+                onSearchMovies={handleSearchMovies}
               />
             }
           />
@@ -141,9 +202,10 @@ function App() {
             path="/saved-movies"
             element={
               <Movies
-                movies={favoriteMovies}
+                movies={movies}
                 loggedIn={loggedIn}
-                handleRemoveCard={handleRemoveCard}
+                isFound={isFound}
+                onRemoveMovie={handleRemoveMovie}
               />
             }
           />
@@ -153,13 +215,17 @@ function App() {
               <Profile
                 loggedIn={loggedIn}
                 isLoadingButton={isLoadingButton}
-                onHandleLogout={handleAuth}
+                isInputActive={isInputActive}
+                isButton={isButton}
+                onLogout={handleLogout}
+                onUpdateUser={handleUpdateUser}
+                onEditProfile={handleEditProfile}
               />
             }
           />
           <Route
             path="/signin"
-            element={<Login isLoadingButton={isLoadingButton} onLogin={handleAuth} />}
+            element={<Login onLogin={handleLogin} isLoadingButton={isLoadingButton} />}
           />
           <Route
             path="/signup"
@@ -172,11 +238,7 @@ function App() {
           onClose={closePopups}
           name="info-tooltip"
           isSuccessful={successful}
-          message={
-            successful
-              ? 'Вы успешно зарегистрировались!'
-              : 'Что-то пошло не так! Попробуйте ещё раз.'
-          }
+          message={tooltipMessage}
         />
       </div>
     </CurrentUserContext.Provider>

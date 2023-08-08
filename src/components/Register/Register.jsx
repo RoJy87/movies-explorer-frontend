@@ -7,7 +7,7 @@ export default function Login({ isLoadingButton, onRegister }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    onRegister();
+    onRegister(values);
   }
 
   return (

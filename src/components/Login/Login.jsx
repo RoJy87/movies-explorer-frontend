@@ -3,11 +3,12 @@ import AuthPage from '../AuthPage/AuthPage';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 
 export default function Login({ isLoadingButton, onLogin }) {
-  const { values, handleChange, errors, isInputValid, isFormValid } = useFormAndValidation();
+  const { values, setValues, handleChange, errors, isInputValid, isFormValid } =
+    useFormAndValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
-    onLogin();
+    onLogin(values, setValues);
   }
 
   return (
