@@ -1,39 +1,55 @@
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import SearchForm from '../SearchForm/SearchForm';
+import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+import { useLocation } from 'react-router-dom';
 import Preloader from '../Preloader/Preloader';
-import { Suspense, lazy, useState } from 'react';
-
-const MoviesCardList = lazy(() => import('../MoviesCardList/MoviesCardList'));
-const SearchForm = lazy(() => import('../SearchForm/SearchForm'));
-const FilterCheckbox = lazy(() => import('../FilterCheckbox/FilterCheckbox'));
 
 export default function Movies({
   loggedIn,
+  isLoading,
   movies,
   isFound,
   onSaveMovie,
   onRemoveMovie,
-  onSearchMovies
+  onSearchMovies,
+  onHandleCheckShorts,
+  isChecked,
+  setSearchText,
+  searchText,
 }) {
+  const path = useLocation().pathname;
   return (
     <>
       <Header loggedIn={loggedIn} />
-      <Suspense fallback={<Preloader />}>
-        <main className="movies">
-          <SearchForm movies={movies} onSearchMovies={onSearchMovies}>
-            <FilterCheckbox />
-          </SearchForm>
-          {isFound ? (
+      <main className="movies">
+        <SearchForm
+          movies={movies}
+          onSearchMovies={onSearchMovies}
+          setSearchText={setSearchText}
+          searchText={searchText}>
+          <FilterCheckbox
+            onHandleCheckShorts={() => onHandleCheckShorts(movies)}
+            isChecked={isChecked}
+          />
+        </SearchForm>
+        {!isLoading ? (
+          isFound ? (
             <MoviesCardList
               movies={movies}
               onSaveMovie={onSaveMovie}
               onRemoveMovie={onRemoveMovie}
             />
+          ) : path === '/saved-movies' ? (
+            <p className="text-primary">Вы ничего не добавили в избранное!</p>
           ) : (
             <p className="text-primary">Ничего не найдено!</p>
-          )}
-        </main>
-      </Suspense>
+          )
+        ) : (
+          <Preloader />
+        )}
+      </main>
       <Footer />
     </>
   );

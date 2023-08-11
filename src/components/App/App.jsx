@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, lazy, Suspense } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { moviesApi } from '../../utils/MoviesApi';
@@ -12,11 +12,17 @@ import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import { auth } from '../../utils/Auth';
 import { CREATE_USER_ERROR_CODE } from '../../utils/constants';
 import { mainApi } from '../../utils/MainApi';
+import { moviesHandler, searchFilter } from '../../utils/utils';
+import Preloader from '../Preloader/Preloader';
+
+// const Movies = lazy(() => import('../Movies/Movies'));
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isLoadingButton, setIsLoadingButton] = useState(Boolean);
+  const [isLoading, setIsLoading] = useState(Boolean);
   const [movies, setMovies] = useState([]);
+  const [foundedMovies, setFoundedMovies] = useState([]);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false);
   const [tooltipMessage, setTooltipMessage] = useState('');
@@ -24,36 +30,48 @@ function App() {
   const [isInputActive, setIsInputActive] = useState(true);
   const [isButton, setIsButton] = useState(false);
   const [isFound, setIsFound] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({});
 
   const navigate = useNavigate();
   const path = useLocation().pathname;
 
-  function searchFilter(data, searchText) {
-    return data.filter(
-      (movie) =>
-        movie.nameRU.toLowerCase().includes(searchText) ||
-        movie.nameEN.toLowerCase().includes(searchText)
-    );
-  }
-
   // User
 
-  useEffect(() => {
-    // const moviesList = JSON.parse(localStorage.getItem('movies'));
+  const checkToken = useCallback(() => {
     auth
       .getAuthInfo()
       .then((userData) => {
         setLoggedIn(true);
         setCurrentUser(userData);
       })
-      .then(() => {
-        const searchText = JSON.parse(localStorage.getItem('searchText'));
-        handleSearchMovies(searchText);
-      })
       .catch(({ err, message }) => console.log(message));
-  }, [loggedIn]);
+  }, []);
+
+  useEffect(() => {
+    checkToken();
+  }, [checkToken]);
+
+  useEffect(() => {
+    if (loggedIn) {
+      Promise.all([mainApi.getItems(), moviesApi.getItems()])
+        .then(([favoritesMovies, movies]) => {
+          const structuredMovies = moviesHandler(movies);
+          setMovies(structuredMovies);
+          if (favoritesMovies) {
+            const userFavorites = favoritesMovies.filter(
+              (movie) => movie.owner === currentUser._id
+            );
+            setFavoriteMovies(userFavorites);
+            const favoritesId = userFavorites.map((movie) => movie.movieId);
+            localStorage.setItem('favorites', JSON.stringify(favoritesId));
+          }
+        })
+        .catch(({ err, message }) => console.log(message));
+    }
+  }, [loggedIn, currentUser._id]);
 
   function handleLogin(values, setValues) {
     setIsLoadingButton(true);
@@ -83,6 +101,7 @@ function App() {
   function handleLogout() {
     auth.logout();
     setLoggedIn(false);
+    localStorage.clear();
     navigate('/signin', { replace: true });
   }
 
@@ -132,7 +151,7 @@ function App() {
           : setTooltipMessage('Что-то пошло не так');
         setSuccessful(false);
         setInfoTooltipPopupOpen(true);
-        console.log(err);
+        console.log(message);
       })
       .finally(() => {
         setIsLoadingButton(false);
@@ -141,40 +160,80 @@ function App() {
 
   // Movies
 
-  const handleSearchMovies = (searchText) => {
-    moviesApi
-      .getItems()
+  useEffect(() => {
+    setIsLoading(true);
+    const searchData = JSON.parse(localStorage.getItem('searchMovie'));
+    if (path === '/movies' && !!searchData.movies.length) {
+      setIsChecked(searchData.isChecked);
+      setSearchText(searchData.searchText);
+      setIsFound(true);
+      setFoundedMovies(searchFilter(searchData.movies, searchText, isChecked));
+    }
+    setTimeout(() => setIsLoading(false), 1000);
+  }, [path, isChecked]);
+
+  useEffect(() => {
+    if (path === '/saved-movies') {
+      setIsChecked(false);
+      setSearchText('');
+      setFavoriteMovies(favoriteMovies);
+      !!favoriteMovies.length ? setIsFound(true) : setIsFound(false);
+    }
+  }, [path, favoriteMovies]);
+
+  function handleSearchMovies() {
+    setIsLoading(true);
+    const results = searchFilter(movies, searchText, isChecked);
+    localStorage.setItem('searchMovie', JSON.stringify({ movies: results, searchText, isChecked }));
+    setFoundedMovies(results);
+    setIsFound(!!results.length);
+    setTimeout(() => setIsLoading(false), 1000);
+  }
+
+  const handleCheckShorts = () => {
+    setIsChecked(!isChecked);
+    const searchData = JSON.parse(localStorage.getItem('searchMovie'));
+    localStorage.setItem('searchMovie', JSON.stringify({ ...searchData, isChecked: !isChecked }));
+  };
+
+  const handleSaveMovie = (movie) => {
+    mainApi
+      .setItems(movie)
       .then((data) => {
-        const results = searchFilter(data, searchText);
-        localStorage.clear('searchText');
-        localStorage.setItem('searchText', JSON.stringify(searchText));
-        return results;
-      })
-      .then((data) => {
-        console.log(data);
-        if (data) {
-          setMovies(data);
-          setIsFound(true);
-        }
+        setFavoriteMovies([...favoriteMovies, data]);
+        const favoritesList = JSON.parse(localStorage.getItem('favorites')) || [];
+        localStorage.setItem('favorites', JSON.stringify([...favoritesList, movie.movieId]));
       })
       .catch(({ err, message }) => console.log(message));
   };
 
-  const handleSaveMovie = (movie) => {
-    const favoritesList = JSON.parse(localStorage.getItem('favorites'));
-    localStorage.setItem('favorites', JSON.stringify([...favoritesList, movie.id]));
-    setFavoriteMovies([...favoriteMovies, movie]);
+  const handleRemoveMovie = (movie) => {
+    console.log(favoriteMovies);
+
+    const favoriteMovie = favoriteMovies.find((favorite) => favorite.movieId === movie.movieId);
+    console.log(favoriteMovie._id);
+    mainApi
+      .deleteItem(favoriteMovie._id)
+      .then((data) => {
+        const userFavorites = favoriteMovies.filter(
+          (favorite) => favorite.movieId !== movie.movieId
+        );
+        setFavoriteMovies(userFavorites);
+        const favoritesList = JSON.parse(localStorage.getItem('favorites'));
+        localStorage.setItem(
+          'favorites',
+          JSON.stringify(favoritesList.filter((id) => id !== movie.movieId))
+        );
+      })
+      .catch(({ err, message }) => console.log(message));
   };
 
-  const handleRemoveMovie = (movie) => {
-    const favoriteMovie = favoriteMovies.find((item) => item.id === movie.id);
-    setFavoriteMovies(favoriteMovies.filter((item) => item.id !== favoriteMovie.id));
-    const favoritesList = JSON.parse(localStorage.getItem('favorites'));
-    localStorage.setItem(
-      'favorites',
-      JSON.stringify(favoritesList.filter((id) => id !== movie.id))
-    );
-  };
+  function openPopups(message) {
+    console.log('открывайся');
+    setTooltipMessage(message);
+    setInfoTooltipPopupOpen(true);
+    setTimeout(() => closePopups(), 2000);
+  }
 
   function closePopups() {
     setInfoTooltipPopupOpen(false);
@@ -183,56 +242,66 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
-        <Routes>
-          <Route path="/" element={<Main loggedIn={loggedIn} />} />
-          <Route
-            path="/movies"
-            element={
-              <Movies
-                movies={movies}
-                loggedIn={loggedIn}
-                isFound={isFound}
-                onSaveMovie={handleSaveMovie}
-                onRemoveMovie={handleRemoveMovie}
-                onSearchMovies={handleSearchMovies}
-              />
-            }
-          />
-          <Route
-            path="/saved-movies"
-            element={
-              <Movies
-                movies={movies}
-                loggedIn={loggedIn}
-                isFound={isFound}
-                onRemoveMovie={handleRemoveMovie}
-              />
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <Profile
-                loggedIn={loggedIn}
-                isLoadingButton={isLoadingButton}
-                isInputActive={isInputActive}
-                isButton={isButton}
-                onLogout={handleLogout}
-                onUpdateUser={handleUpdateUser}
-                onEditProfile={handleEditProfile}
-              />
-            }
-          />
-          <Route
-            path="/signin"
-            element={<Login onLogin={handleLogin} isLoadingButton={isLoadingButton} />}
-          />
-          <Route
-            path="/signup"
-            element={<Register onRegister={handleRegister} isLoadingButton={isLoadingButton} />}
-          />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={<Preloader />}>
+          <Routes>
+            <Route path="/" element={<Main loggedIn={loggedIn} />} />
+            <Route
+              path="/movies"
+              element={
+                <Movies
+                  movies={foundedMovies}
+                  loggedIn={loggedIn}
+                  isLoading={isLoading}
+                  isFound={isFound}
+                  onSaveMovie={handleSaveMovie}
+                  onRemoveMovie={handleRemoveMovie}
+                  onSearchMovies={handleSearchMovies}
+                  onHandleCheckShorts={handleCheckShorts}
+                  isChecked={isChecked}
+                  setSearchText={setSearchText}
+                  searchText={searchText}
+                />
+              }
+            />
+            <Route
+              path="/saved-movies"
+              element={
+                <Movies
+                  movies={favoriteMovies}
+                  loggedIn={loggedIn}
+                  isLoading={isLoading}
+                  isFound={isFound}
+                  onRemoveMovie={handleRemoveMovie}
+                  onHandleCheckShorts={handleCheckShorts}
+                  isChecked={isChecked}
+                />
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <Profile
+                  loggedIn={loggedIn}
+                  isLoadingButton={isLoadingButton}
+                  isInputActive={isInputActive}
+                  isButton={isButton}
+                  onLogout={handleLogout}
+                  onUpdateUser={handleUpdateUser}
+                  onEditProfile={handleEditProfile}
+                />
+              }
+            />
+            <Route
+              path="/signin"
+              element={<Login onLogin={handleLogin} isLoadingButton={isLoadingButton} />}
+            />
+            <Route
+              path="/signup"
+              element={<Register onRegister={handleRegister} isLoadingButton={isLoadingButton} />}
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
         <InfoTooltip
           isOpen={isInfoTooltipPopupOpen}
           onClose={closePopups}

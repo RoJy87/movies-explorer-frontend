@@ -1,4 +1,4 @@
-import { beatFilmsApiRequest as url } from './constants';
+import { MOVIES_API_REQUEST as url } from './constants';
 
 class MoviesApi {
   constructor({ url, headers, credentials }) {

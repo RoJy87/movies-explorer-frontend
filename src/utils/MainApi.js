@@ -1,4 +1,4 @@
-import { mainApiRequest as url } from './constants';
+import { MAIN_API as url } from './constants';
 
 class MainApi {
   constructor({ url, headers, credentials }) {
@@ -28,13 +28,13 @@ class MainApi {
   // заменить данные пользователя (PATCH)
   setUserInfo(body) {
     return fetch(`${this._url.userUrl}`, {
-      method: "PATCH",
+      method: 'PATCH',
       credentials: this._credentials,
       headers: this._headers,
       body: JSON.stringify({
         name: body.name,
-        email: body.email,
-      }),
+        email: body.email
+      })
     }).then(this._checkResponse);
   }
 
@@ -42,16 +42,38 @@ class MainApi {
   getItems() {
     return fetch(`${this._url.moviesUrl}`, {
       credentials: this._credentials,
-      headers: this._headers,
+      headers: this._headers
     }).then(this._checkResponse);
   }
 
-  // добавить/удалить фильм из избранного (DELETE/PUT)
-  changeFavoriteStatus(id, isFavorite) {
-    return fetch(`${this._url.moviesUrl}/${id}/saved`, {
-      method: `${isFavorite ? "DELETE" : "PUT"}`,
+  // добавить карточку (POST)
+  setItems(movie) {
+    return fetch(`${this._url.moviesUrl}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: movie.image,
+        trailerLink: movie.trailerLink,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+        thumbnail: movie.thumbnail,
+        movieId: movie.movieId
+      }),
       credentials: this._credentials,
-      headers: this._headers,
+      headers: this._headers
+    }).then(this._checkResponse);
+  }
+
+  // удалить карточку (DELETE)
+  deleteItem(id) {
+    return fetch(`${this._url.moviesUrl}/${id}`, {
+      method: 'DELETE',
+      credentials: this._credentials,
+      headers: this._headers
     }).then(this._checkResponse);
   }
 }

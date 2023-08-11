@@ -28,15 +28,13 @@ function Navigation() {
         ref={navigationRef}
         className={classNames('navigation__links', {
           navigation__links_active: isMenuVisible
-        })}
-      >
+        })}>
         {isMenuVisible && (
           <NavLink
             to={'/'}
             className={({ isActive }) =>
               isActive ? 'navigation__link link navigation__link_active' : 'navigation__link link'
-            }
-          >
+            }>
             Главная
           </NavLink>
         )}
@@ -47,8 +45,7 @@ function Navigation() {
               to={navLink.to}
               className={({ isActive }) =>
                 isActive ? 'navigation__link link navigation__link_active' : 'navigation__link link'
-              }
-            >
+              }>
               {navLink.title}
             </NavLink>
           );
@@ -59,8 +56,7 @@ function Navigation() {
       </nav>
       <button
         onClick={handleClickMenu}
-        className={classNames('navigation__burger', { opened: isMenuVisible })}
-      >
+        className={classNames('navigation__burger', { opened: isMenuVisible })}>
         <span className="bar-top"></span>
         <span className="bar-mid"></span>
         <span className="bar-bot"></span>

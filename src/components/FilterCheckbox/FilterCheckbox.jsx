@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { classNames } from '../../utils/classNames';
 
-export default function FilterCheckbox() {
-  const [checked, setChecked] = useState(false);
+export default function FilterCheckbox({ onHandleCheckShorts, isChecked }) {
+  const handleCheck = () => {
+    onHandleCheckShorts();
+  };
   return (
     <label
-      className={classNames('checkbox', { checked: checked })}
+      className={classNames('checkbox', { checked: isChecked })}
       htmlFor="short-film"
-      onChange={() => setChecked(!checked)}
-    >
+      onChange={handleCheck}>
       <input type="checkbox" name="short-film" id="short-film" className="checkbox__input" />{' '}
       Короткометражки
     </label>

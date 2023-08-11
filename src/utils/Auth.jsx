@@ -1,4 +1,4 @@
-import { mainApiRequest as url } from './constants';
+import { MAIN_API as url } from './constants';
 
 class Auth {
   constructor({ url, headers, credentials }) {

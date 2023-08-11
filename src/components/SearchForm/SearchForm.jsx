@@ -1,26 +1,17 @@
-import { useState } from 'react';
-
-export default function SearchForm({ onSearchMovies, children }) {
-  const [searchText, setSearchTerm] = useState('');
-
+export default function SearchForm({ onSearchMovies, setSearchText, searchText, children }) {
   const handleChange = (e) => {
-    setSearchTerm(e.target.value.toLowerCase());
+    setSearchText(e.target.value.toLowerCase());
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearchMovies(searchText);
+    onSearchMovies();
   };
 
   return (
     <section className="search-form">
       <div className="search-form__container">
-        <form
-          id="search"
-          name="search"
-          className="search-form__form"
-          onSubmit={handleSubmit}
-          required>
+        <form id="search" name="search" className="search-form__form" onSubmit={handleSubmit}>
           <label className="search-form__label" htmlFor="search">
             <input
               className="search-form__input"
@@ -28,8 +19,9 @@ export default function SearchForm({ onSearchMovies, children }) {
               name="search"
               id="search"
               placeholder="Фильм"
-              value={searchText}
+              value={searchText || ''}
               onChange={handleChange}
+              required
             />
             <button form="search" type="submit" className="search-form__button button" />
           </label>

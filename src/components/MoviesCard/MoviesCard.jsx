@@ -1,23 +1,19 @@
-import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { beatFilmsApiBase } from '../../utils/constants';
+import { timeConverter } from '../../utils/utils';
+import { useEffect, useState } from 'react';
 
-export default function MoviesCard({ movie, onSaveMovie, onRemoveMovie, isFavorite }) {
-  const [isMovieFavorite, setIsMovieFavorite] = useState(isFavorite);
+export default function MoviesCard({ movie, onSaveMovie, onRemoveMovie, isFavorites }) {
+  const [isFavorite, setIsFavorite] = useState(isFavorites);
   const path = useLocation().pathname;
-
-  const timeConverter = (minut) => {
-    return `${Math.floor(minut / 60)}ч ${minut % 60}м`;
-  };
 
   const handleSave = () => {
     onSaveMovie(movie);
-    setIsMovieFavorite(true);
+    setIsFavorite(true);
   };
 
   const handleRemove = () => {
     onRemoveMovie(movie);
-    setIsMovieFavorite(false);
+    setIsFavorite(false);
   };
 
   return (
@@ -31,7 +27,7 @@ export default function MoviesCard({ movie, onSaveMovie, onRemoveMovie, isFavori
           <button
             className="button movies-card__button movies-card__button_type_close"
             onClick={handleRemove}></button>
-        ) : isMovieFavorite ? (
+        ) : isFavorite ? (
           <button
             onClick={handleRemove}
             className="button movies-card__button movies-card__button_type_saved"></button>
@@ -46,11 +42,7 @@ export default function MoviesCard({ movie, onSaveMovie, onRemoveMovie, isFavori
         className="movies-card__img-button link"
         target="_blanck"
         rel="noopener noreferrer">
-        <img
-          className="movies-card__img"
-          src={`${beatFilmsApiBase}/${movie.image.url}`}
-          alt={movie.nameRU}
-        />
+        <img className="movies-card__img" src={movie.image} alt={movie.nameRU} />
       </Link>
     </li>
   );

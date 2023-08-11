@@ -10,9 +10,9 @@ export default function Profile({
   isLoadingButton,
   isInputActive,
   isButton,
-  onHandleLogout,
-  onHandleUpdateUser,
-  onHandleEditProfile
+  onLogout,
+  onUpdateUser,
+  onEditProfile
 }) {
   const currentUser = useContext(CurrentUserContext);
   const { values, setValues, handleChange, isFormValid, setFormIsValid } = useFormAndValidation();
@@ -22,7 +22,7 @@ export default function Profile({
       name: currentUser.name,
       email: currentUser.email
     });
-  }, [onHandleUpdateUser, currentUser]);
+  }, [onUpdateUser, currentUser]);
 
   useEffect(() => {
     if (values.name === currentUser.name && values.email === currentUser.email) {
@@ -32,7 +32,7 @@ export default function Profile({
 
   function handleSubmit(e) {
     e.preventDefault();
-    onHandleUpdateUser(values);
+    onUpdateUser(values);
   }
 
   return (
@@ -75,10 +75,10 @@ export default function Profile({
           </Form>
           {isInputActive && (
             <div className="profile__buttons">
-              <button className="profile__edit-btn button" onClick={onHandleEditProfile}>
+              <button className="profile__edit-btn button" onClick={onEditProfile}>
                 Редактировать
               </button>
-              <button className="profile__logout-btn button" onClick={onHandleLogout}>
+              <button className="profile__logout-btn button" onClick={onLogout}>
                 Выйти из аккаунта
               </button>
             </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import { windowSizes, moviesQty, moviesQtyToAdd } from '../../utils/constants';
+import { WINDOW_SIZES, MOVIES_QTY, MOVIES_QTY_TO_ADD } from '../../utils/constants';
 import { useLocation } from 'react-router-dom';
 
 export default function MoviesCardList({ movies, onSaveMovie, onRemoveMovie }) {
@@ -17,15 +17,15 @@ export default function MoviesCardList({ movies, onSaveMovie, onRemoveMovie }) {
   useEffect(() => {
     window.addEventListener('resize', resizeWindow);
 
-    if (windowWidth > windowSizes.pc) {
-      setMoviesQtyOnPage(moviesQty.pc);
-      setMoviesQtyNext(moviesQtyToAdd.pc);
-    } else if (windowWidth < windowSizes.pc && windowWidth > windowSizes.mobile) {
-      setMoviesQtyOnPage(moviesQty.tablet);
-      setMoviesQtyNext(moviesQtyToAdd.tablet);
-    } else if (windowWidth < windowSizes.mobile) {
-      setMoviesQtyOnPage(moviesQty.mobile);
-      setMoviesQtyNext(moviesQtyToAdd.mobile);
+    if (windowWidth > WINDOW_SIZES.pc) {
+      setMoviesQtyOnPage(MOVIES_QTY.pc);
+      setMoviesQtyNext(MOVIES_QTY_TO_ADD.pc);
+    } else if (windowWidth < WINDOW_SIZES.pc && windowWidth > WINDOW_SIZES.mobile) {
+      setMoviesQtyOnPage(MOVIES_QTY.tablet);
+      setMoviesQtyNext(MOVIES_QTY_TO_ADD.tablet);
+    } else if (windowWidth < WINDOW_SIZES.mobile) {
+      setMoviesQtyOnPage(MOVIES_QTY.mobile);
+      setMoviesQtyNext(MOVIES_QTY_TO_ADD.mobile);
     }
 
     return () => window.removeEventListener('resize', resizeWindow);
@@ -35,6 +35,7 @@ export default function MoviesCardList({ movies, onSaveMovie, onRemoveMovie }) {
     path === '/movies'
       ? setMoviesForShow(movies.slice(0, moviesQtyOnPage))
       : setMoviesForShow(movies);
+    console.log('777777');
   }, [moviesQtyOnPage, movies, path]);
 
   const onAddMovies = () => {
@@ -48,16 +49,16 @@ export default function MoviesCardList({ movies, onSaveMovie, onRemoveMovie }) {
           return (
             <MoviesCard
               movie={movie}
-              key={Math.random() + Date.now()}
+              key={movie.movieId}
               onSaveMovie={onSaveMovie}
               onRemoveMovie={onRemoveMovie}
-              // isFavorite={localStorage.getItem('favorites').includes(movie.id)}
+              isFavorites={JSON.parse(localStorage.getItem('favorites'))?.includes(movie.movieId)}
             />
           );
         })}
       </ul>
 
-      {
+      {path === '/movies' && (
         <button
           onClick={onAddMovies}
           className={`button movies-cards__button ${
@@ -65,7 +66,7 @@ export default function MoviesCardList({ movies, onSaveMovie, onRemoveMovie }) {
           }`}>
           Ещё
         </button>
-      }
+      )}
     </section>
   );
 }
