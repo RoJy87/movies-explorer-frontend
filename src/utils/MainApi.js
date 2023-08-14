@@ -13,42 +13,45 @@ class MainApi {
     }
     return Promise.reject({
       err: res,
-      message: `Ошибка: ${res.status}, Причина: ${res.statusText}`
+      message: `Ошибка: ${res.status}, Причина: ${res.statusText}`,
     });
   };
 
   // получить данные пользователя (GET)
-  getUserInfo() {
-    return fetch(`${this._url.userUrl}`, {
+  async getUserInfo() {
+    const res = await fetch(`${this._url.userUrl}`, {
       credentials: this._credentials,
-      headers: this._headers
-    }).then(this._checkResponse);
+      headers: this._headers,
+    });
+    return this._checkResponse(res);
   }
 
   // заменить данные пользователя (PATCH)
-  setUserInfo(body) {
-    return fetch(`${this._url.userUrl}`, {
+  async setUserInfo(body) {
+    const res = await fetch(`${this._url.userUrl}`, {
       method: 'PATCH',
       credentials: this._credentials,
       headers: this._headers,
       body: JSON.stringify({
         name: body.name,
-        email: body.email
-      })
-    }).then(this._checkResponse);
+        email: body.email,
+      }),
+    });
+    return this._checkResponse(res);
   }
 
   // получить список всех карточек в виде массива (GET)
-  getItems() {
-    return fetch(`${this._url.moviesUrl}`, {
+  async getItems() {
+    const res = await fetch(`${this._url.moviesUrl}`, {
       credentials: this._credentials,
-      headers: this._headers
-    }).then(this._checkResponse);
+      headers: this._headers,
+    });
+    return this._checkResponse(res);
   }
 
   // добавить карточку (POST)
-  setItems(movie) {
-    return fetch(`${this._url.moviesUrl}`, {
+  async setItems(movie) {
+    const res = await fetch(`${this._url.moviesUrl}`, {
       method: 'POST',
       body: JSON.stringify({
         country: movie.country,
@@ -61,20 +64,22 @@ class MainApi {
         nameRU: movie.nameRU,
         nameEN: movie.nameEN,
         thumbnail: movie.thumbnail,
-        movieId: movie.movieId
+        movieId: movie.movieId,
       }),
       credentials: this._credentials,
-      headers: this._headers
-    }).then(this._checkResponse);
+      headers: this._headers,
+    });
+    return this._checkResponse(res);
   }
 
   // удалить карточку (DELETE)
-  deleteItem(id) {
-    return fetch(`${this._url.moviesUrl}/${id}`, {
+  async deleteItem(id) {
+    const res = await fetch(`${this._url.moviesUrl}/${id}`, {
       method: 'DELETE',
       credentials: this._credentials,
-      headers: this._headers
-    }).then(this._checkResponse);
+      headers: this._headers,
+    });
+    return this._checkResponse(res);
   }
 }
 
@@ -82,6 +87,6 @@ export const mainApi = new MainApi({
   url,
   credentials: 'include',
   headers: {
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 });

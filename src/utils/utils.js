@@ -13,23 +13,23 @@ export const moviesHandler = (movies) => {
       thumbnail: MOVIES_API_BASE + movie.image.formats.thumbnail.url || '',
       movieId: movie.id,
       nameRU: movie.nameRU,
-      nameEN: movie.nameEN || ''
+      nameEN: movie.nameEN || '',
     };
   });
 };
 
-export const searchFilter = (data, searchText, isChecked) => {
+export const searchFilter = (data, searchValues) => {
   return data.filter((movie) => {
-    if (isChecked) {
+    if (searchValues.checkBox) {
       return (
-        (movie.nameRU.toLowerCase().includes(searchText) ||
-          movie.nameEN.toLowerCase().includes(searchText)) &&
+        (movie.nameRU.toLowerCase().includes(searchValues.request) ||
+          movie.nameEN.toLowerCase().includes(searchValues.request)) &&
         movie.duration <= SHORTS_DURATION
       );
     } else {
       return (
-        movie.nameRU.toLowerCase().includes(searchText) ||
-        movie.nameEN.toLowerCase().includes(searchText)
+        movie.nameRU.toLowerCase().includes(searchValues.request) ||
+        movie.nameEN.toLowerCase().includes(searchValues.request)
       );
     }
   });

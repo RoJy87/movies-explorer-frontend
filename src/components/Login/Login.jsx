@@ -1,6 +1,7 @@
 import Input from '../Input/Input';
 import AuthPage from '../AuthPage/AuthPage';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
+import { EMAIL, PASSWORD } from '../../utils/constants';
 
 export default function Login({ isLoadingButton, onLogin }) {
   const { values, setValues, handleChange, errors, isInputValid, isFormValid } =
@@ -45,6 +46,7 @@ export default function Login({ isLoadingButton, onLogin }) {
         labelName="Пароль"
         placeholder="Введите пароль..."
         required
+        minLength={6}
         values={values}
         onChange={handleChange}
         errors={

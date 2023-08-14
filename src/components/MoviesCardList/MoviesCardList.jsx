@@ -35,7 +35,6 @@ export default function MoviesCardList({ movies, onSaveMovie, onRemoveMovie }) {
     path === '/movies'
       ? setMoviesForShow(movies.slice(0, moviesQtyOnPage))
       : setMoviesForShow(movies);
-    console.log('777777');
   }, [moviesQtyOnPage, movies, path]);
 
   const onAddMovies = () => {

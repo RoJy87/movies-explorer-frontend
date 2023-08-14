@@ -37,11 +37,7 @@ export default function MoviesCard({ movie, onSaveMovie, onRemoveMovie, isFavori
             className="button movies-card__button movies-card__button_type_normal"></button>
         )}
       </div>
-      <Link
-        to={movie.trailerLink}
-        className="movies-card__img-button link"
-        target="_blanck"
-        rel="noopener noreferrer">
+      <Link to={movie.trailerLink} className="movies-card__img-button link" target="_blanck">
         <img className="movies-card__img" src={movie.image} alt={movie.nameRU} />
       </Link>
     </li>

@@ -1,17 +1,22 @@
-export default function SearchForm({ onSearchMovies, setSearchText, searchText, children }) {
+export default function SearchForm({ onSubmit, onChange, searchValue, children }) {
   const handleChange = (e) => {
-    setSearchText(e.target.value.toLowerCase());
+    onChange(e.target.value.toLowerCase());
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearchMovies();
+    onSubmit();
   };
 
   return (
     <section className="search-form">
       <div className="search-form__container">
-        <form id="search" name="search" className="search-form__form" onSubmit={handleSubmit}>
+        <form
+          id="search"
+          name="search"
+          className="search-form__form"
+          onSubmit={handleSubmit}
+          required>
           <label className="search-form__label" htmlFor="search">
             <input
               className="search-form__input"
@@ -19,9 +24,8 @@ export default function SearchForm({ onSearchMovies, setSearchText, searchText, 
               name="search"
               id="search"
               placeholder="Фильм"
-              value={searchText || ''}
+              value={searchValue || ''}
               onChange={handleChange}
-              required
             />
             <button form="search" type="submit" className="search-form__button button" />
           </label>

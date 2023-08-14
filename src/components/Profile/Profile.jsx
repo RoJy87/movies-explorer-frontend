@@ -4,6 +4,7 @@ import Header from '../Header/Header';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Form from '../Form/Form';
+import { EMAIL, NAME } from '../../utils/constants';
 
 export default function Profile({
   loggedIn,
@@ -12,15 +13,17 @@ export default function Profile({
   isButton,
   onLogout,
   onUpdateUser,
-  onEditProfile
+  onEditProfile,
+  onCancelEditProfile,
 }) {
   const currentUser = useContext(CurrentUserContext);
-  const { values, setValues, handleChange, isFormValid, setFormIsValid } = useFormAndValidation();
+  const { values, setValues, errors, handleChange, isInputValid, isFormValid, setFormIsValid } =
+    useFormAndValidation();
 
   useEffect(() => {
     setValues({
       name: currentUser.name,
-      email: currentUser.email
+      email: currentUser.email,
     });
   }, [onUpdateUser, currentUser]);
 
@@ -56,6 +59,7 @@ export default function Profile({
               className="profile-form"
               name="name"
               type="text"
+              minLength={2}
               required
               disabled={isInputActive}
               values={values}
@@ -72,8 +76,18 @@ export default function Profile({
               values={values}
               onChange={handleChange}
             />
+            {errors.name && (
+              <span className={`input-error ${!isInputValid ? 'input-error_visible' : ''}`}>
+                Ошибка имени: {errors.name}
+              </span>
+            )}
+            {errors.email && (
+              <span className={`input-error ${!isInputValid ? 'input-error_visible' : ''}`}>
+                Ошибка E-mail: {errors.email}
+              </span>
+            )}
           </Form>
-          {isInputActive && (
+          {isInputActive ? (
             <div className="profile__buttons">
               <button className="profile__edit-btn button" onClick={onEditProfile}>
                 Редактировать
@@ -82,6 +96,10 @@ export default function Profile({
                 Выйти из аккаунта
               </button>
             </div>
+          ) : (
+            <button className="profile__cancel-btn button" onClick={onCancelEditProfile}>
+              Отменить
+            </button>
           )}
         </div>
       </main>

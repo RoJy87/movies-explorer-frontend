@@ -13,15 +13,14 @@ class MoviesApi {
     }
     return Promise.reject({
       err: res,
-      message: `Ошибка: ${res.status}, Причина: ${res.statusText}`
+      message: `Ошибка: ${res.status}, Причина: ${res.statusText}`,
     });
   };
 
   // получить список всех карточек в виде массива (GET)
   async getItems() {
     const res = await fetch(`${this._url}`, {
-      // credentials: this._credentials,
-      headers: this._headers
+      headers: this._headers,
     });
     return this._checkResponse(res);
   }
@@ -29,8 +28,7 @@ class MoviesApi {
 
 export const moviesApi = new MoviesApi({
   url,
-  credentials: 'include',
   headers: {
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 });

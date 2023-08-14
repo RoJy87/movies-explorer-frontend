@@ -5,39 +5,93 @@ import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import { useLocation } from 'react-router-dom';
 import Preloader from '../Preloader/Preloader';
+import { useEffect, useState } from 'react';
+import { searchFilter } from '../../utils/utils';
 
 export default function Movies({
   loggedIn,
-  isLoading,
   movies,
-  isFound,
   onSaveMovie,
   onRemoveMovie,
-  onSearchMovies,
-  onHandleCheckShorts,
-  isChecked,
-  setSearchText,
-  searchText,
+  handleEmptySearch,
+  DataErrorMessage,
 }) {
   const path = useLocation().pathname;
+  const [resultMovies, setResultMovies] = useState(movies || []);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFound, setIsFound] = useState(true);
+  const [searchValues, setSearchValues] = useState({ request: '', checkBox: false });
+
+  useEffect(() => {
+    if (path === '/saved-movies') {
+      setSearchValues({ request: '', checkBox: false });
+    }
+  }, [path]);
+
+  useEffect(() => {
+    if (path === '/movies') {
+      setSearchValues(
+        JSON.parse(localStorage.getItem('searchRequest')) || { request: '', checkBox: false }
+      );
+      setResultMovies(JSON.parse(localStorage.getItem('searchMovies')) || []);
+    }
+  }, [path]);
+
+  useEffect(() => {
+    if (searchValues.request || path === '/saved-movies') {
+      handleSearchMovies();
+    }
+  }, [searchValues.checkBox]);
+
+  useEffect(() => {
+    if ((searchValues.request && path === '/movies') || path === '/saved-movies') {
+      handleSearchMovies();
+    }
+  }, [path, movies]);
+
+  function handleSearchMovies() {
+    setIsLoading(true);
+    const results = searchFilter(movies, searchValues);
+    if (path === '/movies') {
+      localStorage.setItem('searchRequest', JSON.stringify(searchValues));
+      localStorage.setItem('searchMovies', JSON.stringify(results));
+    }
+    setIsFound(!!results.length);
+    setResultMovies(results);
+    setTimeout(() => setIsLoading(false), 1000);
+  }
+
+  function onSubmit() {
+    searchValues.request ? handleSearchMovies() : handleEmptySearch();
+  }
+
+  const handleCheckShorts = (e) => {
+    setSearchValues({ ...searchValues, checkBox: e.target.checked });
+  };
+
+  const handleChangeValue = (value) => {
+    setSearchValues({ ...searchValues, request: value });
+  };
+
   return (
     <>
       <Header loggedIn={loggedIn} />
       <main className="movies">
         <SearchForm
-          movies={movies}
-          onSearchMovies={onSearchMovies}
-          setSearchText={setSearchText}
-          searchText={searchText}>
+          onSubmit={onSubmit}
+          onChange={handleChangeValue}
+          searchValue={searchValues.request}>
           <FilterCheckbox
-            onHandleCheckShorts={() => onHandleCheckShorts(movies)}
-            isChecked={isChecked}
+            onHandleCheckShorts={handleCheckShorts}
+            isChecked={searchValues.checkBox}
           />
         </SearchForm>
-        {!isLoading ? (
+        {DataErrorMessage ? (
+          <p className="text-primary">{DataErrorMessage}</p>
+        ) : !isLoading ? (
           isFound ? (
             <MoviesCardList
-              movies={movies}
+              movies={resultMovies}
               onSaveMovie={onSaveMovie}
               onRemoveMovie={onRemoveMovie}
             />
