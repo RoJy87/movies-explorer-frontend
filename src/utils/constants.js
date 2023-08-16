@@ -10,6 +10,7 @@ export const UNDEFINED_ERROR_MESSAGE = 'Что-то пошло не так';
 export const SUCCESS_LOGIN_MESSAGE = 'Успешно!';
 export const SUCCESS_REGISTER_MESSAGE = 'Регистрация прошла успешно!';
 export const SUCCESS_UPDATE_MESSAGE = 'Информация обновлена';
+export const EMPTY_SEARCH_ERROR_MESSAGE = 'Информация обновлена';
 
 export const MAIN_API = {
   baseUrl:
@@ -28,10 +29,6 @@ export const MAIN_API = {
 
 export const MOVIES_API_BASE = 'https://api.nomoreparties.co';
 export const MOVIES_API_REQUEST = 'https://api.nomoreparties.co/beatfilm-movies';
-
-export const PASSWORD = '[a-zA-Z0-9!@#$%^&*]{6,16}';
-export const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-export const NAME = /^[a-zA-Zа-яА-ЯёЁ\s-]+$/;
 
 export const SHORTS_DURATION = 40;
 

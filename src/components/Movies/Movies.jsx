@@ -11,58 +11,63 @@ import { searchFilter } from '../../utils/utils';
 export default function Movies({
   loggedIn,
   movies,
+  favoriteMovies,
   onSaveMovie,
   onRemoveMovie,
   handleEmptySearch,
   DataErrorMessage,
 }) {
   const path = useLocation().pathname;
-  const [resultMovies, setResultMovies] = useState(movies || []);
+  const [resultMovies, setResultMovies] = useState(favoriteMovies || []);
   const [isLoading, setIsLoading] = useState(false);
   const [isFound, setIsFound] = useState(true);
   const [searchValues, setSearchValues] = useState({ request: '', checkBox: false });
 
   useEffect(() => {
-    if (path === '/saved-movies') {
-      setSearchValues({ request: '', checkBox: false });
-    }
-  }, [path]);
-
-  useEffect(() => {
-    if (path === '/movies') {
-      setSearchValues(
-        JSON.parse(localStorage.getItem('searchRequest')) || { request: '', checkBox: false }
-      );
-      setResultMovies(JSON.parse(localStorage.getItem('searchMovies')) || []);
-    }
-  }, [path]);
-
-  useEffect(() => {
     if (searchValues.request || path === '/saved-movies') {
       handleSearchMovies();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValues.checkBox]);
 
   useEffect(() => {
-    if ((searchValues.request && path === '/movies') || path === '/saved-movies') {
-      handleSearchMovies();
+    setResultMovies(favoriteMovies || []);
+  }, [favoriteMovies]);
+
+  useEffect(() => {
+    setSearchValues({ request: '', checkBox: false });
+    setIsFound(true);
+    if (path === '/movies') {
+      const searchRequest = JSON.parse(localStorage.getItem('searchRequest'));
+      const searchMovies = JSON.parse(localStorage.getItem('searchMovies'));
+      if (searchMovies?.length) {
+        setSearchValues(searchRequest);
+        setIsFound(!!searchMovies?.length);
+        setResultMovies(searchMovies);
+      } else {
+        setResultMovies([]);
+      }
     }
-  }, [path, movies]);
+  }, [path]);
+
+  useEffect(() => {
+    if (searchValues.request && resultMovies?.length && path === '/movies') {
+      localStorage.setItem('searchRequest', JSON.stringify(searchValues));
+      localStorage.setItem('searchMovies', JSON.stringify(resultMovies));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [path, resultMovies]);
 
   function handleSearchMovies() {
     setIsLoading(true);
     const results = searchFilter(movies, searchValues);
-    if (path === '/movies') {
-      localStorage.setItem('searchRequest', JSON.stringify(searchValues));
-      localStorage.setItem('searchMovies', JSON.stringify(results));
-    }
-    setIsFound(!!results.length);
+    setIsFound(results.length);
     setResultMovies(results);
-    setTimeout(() => setIsLoading(false), 1000);
+    setIsLoading(false);
   }
 
   function onSubmit() {
-    searchValues.request ? handleSearchMovies() : handleEmptySearch();
+    searchValues.request ? handleSearchMovies(movies) : handleEmptySearch();
   }
 
   const handleCheckShorts = (e) => {

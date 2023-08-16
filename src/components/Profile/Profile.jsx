@@ -4,7 +4,6 @@ import Header from '../Header/Header';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import Form from '../Form/Form';
-import { EMAIL, NAME } from '../../utils/constants';
 
 export default function Profile({
   loggedIn,
@@ -25,13 +24,13 @@ export default function Profile({
       name: currentUser.name,
       email: currentUser.email,
     });
-  }, [onUpdateUser, currentUser]);
+  }, [onUpdateUser, currentUser, setValues]);
 
   useEffect(() => {
     if (values.name === currentUser.name && values.email === currentUser.email) {
       setFormIsValid(false);
     }
-  }, [values.name, values.email]);
+  }, [values.name, values.email, currentUser.name, currentUser.email, setFormIsValid]);
 
   function handleSubmit(e) {
     e.preventDefault();

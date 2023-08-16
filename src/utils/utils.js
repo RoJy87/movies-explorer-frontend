@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { MOVIES_API_BASE, SHORTS_DURATION } from './constants';
 
 export const moviesHandler = (movies) => {
@@ -19,21 +20,34 @@ export const moviesHandler = (movies) => {
 };
 
 export const searchFilter = (data, searchValues) => {
-  return data.filter((movie) => {
+  const movies = data.filter((movie) => {
     if (searchValues.checkBox) {
       return (
-        (movie.nameRU.toLowerCase().includes(searchValues.request) ||
-          movie.nameEN.toLowerCase().includes(searchValues.request)) &&
+        (movie.nameRU?.toLowerCase().includes(searchValues.request) ||
+          movie.nameEN?.toLowerCase().includes(searchValues.request)) &&
         movie.duration <= SHORTS_DURATION
       );
     } else {
       return (
-        movie.nameRU.toLowerCase().includes(searchValues.request) ||
-        movie.nameEN.toLowerCase().includes(searchValues.request)
+        movie.nameRU?.toLowerCase().includes(searchValues.request) ||
+        movie.nameEN?.toLowerCase().includes(searchValues.request)
       );
     }
   });
+  return movies;
 };
+
+export function ClosePopupOnEscape({ action }) {
+  useEffect(() => {
+    function handleEscClose(evt) {
+      evt.key === 'Escape' && action();
+    }
+    document.addEventListener('keydown', handleEscClose);
+    return () => {
+      document.removeEventListener('keydown', handleEscClose);
+    };
+  });
+}
 
 export const timeConverter = (minut) => {
   return minut < 60 ? `${minut}м` : `${Math.floor(minut / 60)}ч ${minut % 60}м`;

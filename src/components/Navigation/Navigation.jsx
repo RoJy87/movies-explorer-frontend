@@ -1,4 +1,3 @@
-// import { useLocation } from "react-router-dom";
 import React, { useEffect, useRef } from 'react';
 import { classNames } from '../../utils/classNames';
 import { Link, NavLink, useLocation } from 'react-router-dom';
@@ -27,7 +26,7 @@ function Navigation() {
       <nav
         ref={navigationRef}
         className={classNames('navigation__links', {
-          navigation__links_active: isMenuVisible
+          navigation__links_active: isMenuVisible,
         })}>
         {isMenuVisible && (
           <NavLink
@@ -38,10 +37,10 @@ function Navigation() {
             Главная
           </NavLink>
         )}
-        {navLinks.map((navLink) => {
+        {navLinks.map((navLink, index) => {
           return (
             <NavLink
-              key={Date.now() + Math.random()}
+              key={index}
               to={navLink.to}
               className={({ isActive }) =>
                 isActive ? 'navigation__link link navigation__link_active' : 'navigation__link link'

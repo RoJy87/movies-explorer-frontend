@@ -1,7 +1,6 @@
 import Input from '../Input/Input';
 import AuthPage from '../AuthPage/AuthPage';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
-import { EMAIL, NAME, PASSWORD } from '../../utils/constants';
 
 export default function Login({ isLoadingButton, onRegister }) {
   const { values, handleChange, errors, isInputValid, isFormValid } = useFormAndValidation();

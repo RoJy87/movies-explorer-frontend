@@ -17,15 +17,6 @@ class MainApi {
     });
   };
 
-  // получить данные пользователя (GET)
-  async getUserInfo() {
-    const res = await fetch(`${this._url.userUrl}`, {
-      credentials: this._credentials,
-      headers: this._headers,
-    });
-    return this._checkResponse(res);
-  }
-
   // заменить данные пользователя (PATCH)
   async setUserInfo(body) {
     const res = await fetch(`${this._url.userUrl}`, {

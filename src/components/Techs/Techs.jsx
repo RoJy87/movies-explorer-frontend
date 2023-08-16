@@ -10,9 +10,9 @@ export default function Techs() {
         На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.
       </p>
       <ul className="techs__list">
-        {techsList.map((item) => {
+        {techsList.map((item, index) => {
           return (
-            <li className="techs__item" key={Date.now() + Math.random()}>
+            <li className="techs__item" key={index}>
               {item}
             </li>
           );

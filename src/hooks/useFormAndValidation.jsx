@@ -11,7 +11,7 @@ export function useFormAndValidation() {
     setValues((values) => ({ ...values, [name]: value }));
     setErrors((errors) => ({
       ...errors,
-      [name]: e.target.validationMessage
+      [name]: e.target.validationMessage,
     }));
     setInputIsValid(e.target.closest('input').checkValidity());
     setFormIsValid(e.target.closest('form').checkValidity());
@@ -37,6 +37,6 @@ export function useFormAndValidation() {
     setValues,
     setInputIsValid,
     setFormIsValid,
-    setErrors
+    setErrors,
   };
 }

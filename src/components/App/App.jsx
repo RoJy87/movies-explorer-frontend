@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { moviesApi } from '../../utils/MoviesApi';
 import Login from '../Login/Login';
@@ -13,6 +13,7 @@ import { auth } from '../../utils/Auth';
 import {
   CREATE_USER_ERROR_CODE,
   DUBLICATE_ERROR_MESSAGE,
+  EMPTY_SEARCH_ERROR_MESSAGE,
   SERVER_ERROR_MESSAGE,
   SUCCESS_LOGIN_MESSAGE,
   SUCCESS_REGISTER_MESSAGE,
@@ -23,6 +24,7 @@ import {
 import { mainApi } from '../../utils/MainApi';
 import { moviesHandler } from '../../utils/utils';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import Preloader from '../Preloader/Preloader';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -39,25 +41,6 @@ function App() {
 
   const navigate = useNavigate();
   const path = useLocation().pathname;
-
-  const checkToken = useCallback(() => {
-    auth
-      .getAuthInfo()
-      .then((userData) => {
-        setLoggedIn(true);
-        setCurrentUser(userData);
-        if (path === '/signin' || path === '/signup') {
-          navigate('/movies');
-        } else {
-          navigate(path);
-        }
-      })
-      .catch(({ err, message }) => console.log(message));
-  }, []);
-
-  useEffect(() => {
-    checkToken();
-  }, [checkToken]);
 
   useEffect(() => {
     if (loggedIn) {
@@ -77,11 +60,26 @@ function App() {
           console.log(message);
         });
     }
-  }, [loggedIn, currentUser._id]);
+  }, [loggedIn, currentUser]);
 
   // User
 
-  function handleLogin(values, setValues) {
+  const checkToken = () => {
+    auth
+      .getAuthInfo()
+      .then((userData) => {
+        setLoggedIn(true);
+        setCurrentUser(userData);
+        navigate(path);
+      })
+      .catch(({ err, message }) => console.log(message));
+  };
+  useEffect(() => {
+    checkToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function handleLogin(values) {
     setIsLoadingButton(true);
     if (!values.password || !values.email) {
       return;
@@ -89,17 +87,13 @@ function App() {
     const { email, password } = values;
     auth
       .authorize(email, password)
-      .then((userData) => {
-        const { name, email } = userData;
-        setCurrentUser({ name, email });
-        setLoggedIn(true);
+      .then(() => {
+        checkToken();
         openTooltip({
           message: SUCCESS_LOGIN_MESSAGE,
           success: true,
         });
-        setTimeout(() => {
-          navigate('/movies');
-        }, 2000);
+        navigate('/movies', { replace: true });
       })
       .catch(({ err, message }) => {
         openTooltip({
@@ -223,7 +217,7 @@ function App() {
 
   function handleEmptySearch() {
     openTooltip({
-      message: 'Нужно ввести ключевое слово',
+      message: EMPTY_SEARCH_ERROR_MESSAGE,
       success: false,
     });
   }
@@ -254,7 +248,7 @@ function App() {
                 onRemoveMovie={handleRemoveMovie}
                 handleEmptySearch={handleEmptySearch}
                 DataErrorMessage={DataErrorMessage}
-                element={Movies}
+                element={movies.length ? Movies : Preloader}
               />
             }
           />
@@ -263,10 +257,11 @@ function App() {
             element={
               <ProtectedRoute
                 movies={favoriteMovies}
+                favoriteMovies={favoriteMovies}
                 loggedIn={loggedIn}
                 onRemoveMovie={handleRemoveMovie}
                 handleEmptySearch={handleEmptySearch}
-                element={Movies}
+                element={favoriteMovies ? Movies : Preloader}
               />
             }
           />
@@ -288,11 +283,23 @@ function App() {
           />
           <Route
             path="/signin"
-            element={<Login onLogin={handleLogin} isLoadingButton={isLoadingButton} />}
+            element={
+              loggedIn ? (
+                <Navigate to="/movies" />
+              ) : (
+                <Login onLogin={handleLogin} isLoadingButton={isLoadingButton} />
+              )
+            }
           />
           <Route
             path="/signup"
-            element={<Register onRegister={handleRegister} isLoadingButton={isLoadingButton} />}
+            element={
+              loggedIn ? (
+                <Navigate to="/movies" />
+              ) : (
+                <Register onRegister={handleRegister} isLoadingButton={isLoadingButton} />
+              )
+            }
           />
           <Route path="*" element={<NotFound />} />
         </Routes>

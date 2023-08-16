@@ -6,9 +6,9 @@ export default function AboutProject() {
     <section className="about" id="about">
       <h2 className="title about__title">О проекте</h2>
       <ul className="about__list">
-        {aboutProjectList.map((item) => {
+        {aboutProjectList.map((item, index) => {
           return (
-            <li key={Date.now() + Math.random()} className="about__item">
+            <li key={index} className="about__item">
               <h3 className="about__item-title">{item.title}</h3>
               <p className="about__item-text">{item.text}</p>
             </li>

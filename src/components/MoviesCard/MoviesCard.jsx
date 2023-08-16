@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { timeConverter } from '../../utils/utils';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function MoviesCard({ movie, onSaveMovie, onRemoveMovie, isFavorites }) {
   const [isFavorite, setIsFavorite] = useState(isFavorites);

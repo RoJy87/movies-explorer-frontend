@@ -22,7 +22,7 @@ export default function NavTab() {
       <nav
         ref={navRef}
         className={classNames('navtab__list', {
-          navtab__list_active: isActive
+          navtab__list_active: isActive,
         })}
       >
         <a href="#about" className="navtab__link">

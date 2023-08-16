@@ -62,7 +62,8 @@ export default function MoviesCardList({ movies, onSaveMovie, onRemoveMovie }) {
           onClick={onAddMovies}
           className={`button movies-cards__button ${
             movies <= moviesForShow && 'movies-cards__button_hidden'
-          }`}>
+          }`}
+        >
           Ещё
         </button>
       )}

@@ -7,9 +7,9 @@ export default function Portfolio() {
     <section className="portfolio">
       <h2 className="portfolio__title">Портфолио</h2>
       <ul className="portfolio__list">
-        {portfolioList.map((item) => {
+        {portfolioList.map((item, index) => {
           return (
-            <li className="portfolio__item" key={Date.now() + Math.random()}>
+            <li className="portfolio__item" key={index}>
               <Link className="portfolio__link link" to={item.adress} target="_blank">
                 {item.name}
               </Link>

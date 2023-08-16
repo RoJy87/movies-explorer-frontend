@@ -16,7 +16,8 @@ export default function SearchForm({ onSubmit, onChange, searchValue, children }
           name="search"
           className="search-form__form"
           onSubmit={handleSubmit}
-          required>
+          required
+        >
           <label className="search-form__label" htmlFor="search">
             <input
               className="search-form__input"
