@@ -127,7 +127,10 @@ function App() {
           message: SUCCESS_REGISTER_MESSAGE,
           success: true,
         });
-        navigate('/signin');
+        navigate('/signin', { replace: true });
+        setTimeout(() => {
+          handleLogin(values);
+        }, 2500);
       })
       .catch(({ err, message }) => {
         console.log(message);

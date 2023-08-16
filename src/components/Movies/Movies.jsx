@@ -63,7 +63,9 @@ export default function Movies({
     const results = searchFilter(movies, searchValues);
     setIsFound(results.length);
     setResultMovies(results);
-    setIsLoading(false);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 200);
   }
 
   function onSubmit() {
