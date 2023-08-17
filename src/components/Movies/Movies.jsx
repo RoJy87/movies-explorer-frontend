@@ -1,11 +1,11 @@
+import { useCallback, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-import { useLocation } from 'react-router-dom';
 import Preloader from '../Preloader/Preloader';
-import { useEffect, useState } from 'react';
 import { searchFilter } from '../../utils/utils';
 
 export default function Movies({
@@ -31,12 +31,22 @@ export default function Movies({
   }, [searchValues.checkBox]);
 
   useEffect(() => {
-    setResultMovies(favoriteMovies || []);
-  }, [favoriteMovies]);
-
-  useEffect(() => {
     setSearchValues({ request: '', checkBox: false });
     setIsFound(true);
+  }, [path]);
+
+  useEffect(() => {
+    setResultMovies(favoriteMovies);
+    if (
+      (searchValues.request && path === '/saved-movies') ||
+      (searchValues.checkBox && path === '/saved-movies')
+    ) {
+      handleSearchMovies();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [favoriteMovies, path]);
+
+  useEffect(() => {
     if (path === '/movies') {
       const searchRequest = JSON.parse(localStorage.getItem('searchRequest'));
       const searchMovies = JSON.parse(localStorage.getItem('searchMovies'));
@@ -63,9 +73,7 @@ export default function Movies({
     const results = searchFilter(movies, searchValues);
     setIsFound(results.length);
     setResultMovies(results);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 200);
+    setIsLoading(false);
   }
 
   function onSubmit() {
@@ -76,9 +84,13 @@ export default function Movies({
     setSearchValues({ ...searchValues, checkBox: e.target.checked });
   };
 
-  const handleChangeValue = (value) => {
-    setSearchValues({ ...searchValues, request: value });
-  };
+  const handleChangeValue = useCallback(
+    (value) => {
+      setSearchValues({ ...searchValues, request: value });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [handleSearchMovies]
+  );
 
   return (
     <>

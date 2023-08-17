@@ -10,7 +10,7 @@ export const UNDEFINED_ERROR_MESSAGE = 'Что-то пошло не так';
 export const SUCCESS_LOGIN_MESSAGE = 'Вы успешно вошли!';
 export const SUCCESS_REGISTER_MESSAGE = 'Регистрация прошла успешно!';
 export const SUCCESS_UPDATE_MESSAGE = 'Информация обновлена';
-export const EMPTY_SEARCH_ERROR_MESSAGE = 'Информация обновлена';
+export const EMPTY_SEARCH_ERROR_MESSAGE = 'Нужно ввести ключевое слово';
 
 export const MAIN_API = {
   baseUrl:
@@ -30,11 +30,15 @@ export const MAIN_API = {
 export const MOVIES_API_BASE = 'https://api.nomoreparties.co';
 export const MOVIES_API_REQUEST = 'https://api.nomoreparties.co/beatfilm-movies';
 
+export const PASSWORD = '^(?=.*[a-zA-Z0-9!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$';
+export const EMAIL = '^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$';
+export const NAME = '^[a-zA-Zа-яА-ЯёЁs -]{2,30}$';
+
 export const SHORTS_DURATION = 40;
 
 export const WINDOW_SIZES = {
-  pc: 1023,
-  mobile: 480,
+  pc: 1280,
+  mobile: 762,
 };
 
 export const MOVIES_QTY = {
@@ -46,5 +50,5 @@ export const MOVIES_QTY = {
 export const MOVIES_QTY_TO_ADD = {
   pc: 3,
   tablet: 2,
-  mobile: 1,
+  mobile: 2,
 };

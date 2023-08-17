@@ -8,7 +8,7 @@ import Form from '../Form/Form';
 export default function Profile({
   loggedIn,
   isLoadingButton,
-  isInputActive,
+  isInputDisactive,
   isButton,
   onLogout,
   onUpdateUser,
@@ -34,6 +34,7 @@ export default function Profile({
 
   function handleSubmit(e) {
     e.preventDefault();
+    setFormIsValid(false);
     onUpdateUser(values);
   }
 
@@ -49,7 +50,7 @@ export default function Profile({
             onSubmit={handleSubmit}
             isFormValid={isFormValid}
             loadingBtn="Сохранение..."
-            loadedBtn={!isInputActive ? 'Сохранить' : 'Редактировать'}
+            loadedBtn={isInputDisactive ? 'Редактировать' : 'Сохранить'}
             isLoadingButton={isLoadingButton}
             isButton={isButton}>
             <Input
@@ -60,7 +61,7 @@ export default function Profile({
               type="text"
               minLength={2}
               required
-              disabled={isInputActive}
+              disabled={isInputDisactive}
               values={values}
               onChange={handleChange}
             />
@@ -71,7 +72,7 @@ export default function Profile({
               name="email"
               type="email"
               required
-              disabled={isInputActive}
+              disabled={isInputDisactive}
               values={values}
               onChange={handleChange}
             />
@@ -86,7 +87,7 @@ export default function Profile({
               </span>
             )}
           </Form>
-          {isInputActive ? (
+          {isInputDisactive ? (
             <div className="profile__buttons">
               <button className="profile__edit-btn button" onClick={onEditProfile}>
                 Редактировать

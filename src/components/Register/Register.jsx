@@ -2,11 +2,15 @@ import Input from '../Input/Input';
 import AuthPage from '../AuthPage/AuthPage';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 
-export default function Login({ isLoadingButton, onRegister }) {
-  const { values, handleChange, errors, isInputValid, isFormValid } = useFormAndValidation();
+export default function Login({ isLoadingButton, onRegister, isInputDisactive }) {
+  const { values, handleChange, errors, isInputValid, isFormValid, setFormIsValid } =
+    useFormAndValidation();
+
+  console.log(isInputDisactive);
 
   function handleSubmit(e) {
     e.preventDefault();
+    setFormIsValid(false);
     onRegister(values);
   }
 
@@ -29,6 +33,7 @@ export default function Login({ isLoadingButton, onRegister }) {
         labelName="Имя"
         placeholder="Введите Имя..."
         required
+        disabled={isInputDisactive}
         minLength={2}
         values={values}
         onChange={handleChange}
@@ -45,6 +50,7 @@ export default function Login({ isLoadingButton, onRegister }) {
         labelName="E-mail"
         placeholder="Введите E-mail..."
         required
+        disabled={isInputDisactive}
         values={values}
         onChange={handleChange}
         errors={
@@ -60,6 +66,7 @@ export default function Login({ isLoadingButton, onRegister }) {
         labelName="Пароль"
         placeholder="Введите пароль..."
         required
+        disabled={isInputDisactive}
         minLength={6}
         values={values}
         onChange={handleChange}

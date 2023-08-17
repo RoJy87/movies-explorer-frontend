@@ -20,7 +20,7 @@ export default function MoviesCardList({ movies, onSaveMovie, onRemoveMovie }) {
     if (windowWidth > WINDOW_SIZES.pc) {
       setMoviesQtyOnPage(MOVIES_QTY.pc);
       setMoviesQtyNext(MOVIES_QTY_TO_ADD.pc);
-    } else if (windowWidth < WINDOW_SIZES.pc && windowWidth > WINDOW_SIZES.mobile) {
+    } else if (windowWidth <= WINDOW_SIZES.pc && windowWidth >= WINDOW_SIZES.mobile) {
       setMoviesQtyOnPage(MOVIES_QTY.tablet);
       setMoviesQtyNext(MOVIES_QTY_TO_ADD.tablet);
     } else if (windowWidth < WINDOW_SIZES.mobile) {
@@ -51,7 +51,7 @@ export default function MoviesCardList({ movies, onSaveMovie, onRemoveMovie }) {
               key={movie.movieId}
               onSaveMovie={onSaveMovie}
               onRemoveMovie={onRemoveMovie}
-              isFavorites={JSON.parse(localStorage.getItem('favorites'))?.includes(movie.movieId)}
+              isFavorite={JSON.parse(localStorage.getItem('favorites'))?.includes(movie.movieId)}
             />
           );
         })}
@@ -62,8 +62,7 @@ export default function MoviesCardList({ movies, onSaveMovie, onRemoveMovie }) {
           onClick={onAddMovies}
           className={`button movies-cards__button ${
             movies <= moviesForShow && 'movies-cards__button_hidden'
-          }`}
-        >
+          }`}>
           Ещё
         </button>
       )}

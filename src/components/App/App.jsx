@@ -31,10 +31,11 @@ function App() {
   const [isLoadingButton, setIsLoadingButton] = useState(Boolean);
   const [movies, setMovies] = useState([]);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
   const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false);
   const [tooltipMessage, setTooltipMessage] = useState('');
   const [successful, setSuccessful] = useState(false);
-  const [isInputActive, setIsInputActive] = useState(true);
+  const [isInputDisactive, setIsInputDisactive] = useState(false);
   const [isButton, setIsButton] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [DataErrorMessage, setDataErrorMessage] = useState('');
@@ -62,6 +63,10 @@ function App() {
     }
   }, [loggedIn, currentUser]);
 
+  useEffect(() => {
+    path === '/profile' && setIsInputDisactive(true);
+  }, [path]);
+
   // User
 
   const checkToken = () => {
@@ -81,6 +86,7 @@ function App() {
 
   function handleLogin(values) {
     setIsLoadingButton(true);
+    setIsInputDisactive(true);
     if (!values.password || !values.email) {
       return;
     }
@@ -90,21 +96,22 @@ function App() {
       .then(() => {
         checkToken();
         openTooltip({
-          message: SUCCESS_LOGIN_MESSAGE,
           success: true,
+          message: SUCCESS_LOGIN_MESSAGE,
         });
         navigate('/movies', { replace: true });
       })
       .catch(({ err, message }) => {
         openTooltip({
-          message: err === undefined ? SERVER_ERROR_MESSAGE : VALID_ERROR_MESSAGE,
           success: false,
+          message: err && err === undefined ? SERVER_ERROR_MESSAGE : VALID_ERROR_MESSAGE,
         });
         console.log(message);
         console.log(err);
       })
       .finally(() => {
         setIsLoadingButton(false);
+        setIsInputDisactive(false);
       });
   }
 
@@ -113,19 +120,20 @@ function App() {
     setLoggedIn(false);
     localStorage.clear();
     setFavoriteMovies([]);
-    navigate('/signin', { replace: true });
+    navigate('/', { replace: true });
   }
 
   const handleRegister = (values) => {
     setIsLoadingButton(true);
+    setIsInputDisactive(true);
     const { name, email, password } = values;
     auth
       .register(name, email, password)
       .then(() => {
         setSuccessful(true);
         openTooltip({
-          message: SUCCESS_REGISTER_MESSAGE,
           success: true,
+          message: SUCCESS_REGISTER_MESSAGE,
         });
         navigate('/signin', { replace: true });
         setTimeout(() => {
@@ -135,30 +143,35 @@ function App() {
       .catch(({ err, message }) => {
         console.log(message);
         openTooltip({
+          success: false,
           message:
-            err.status === CREATE_USER_ERROR_CODE
+            err && err.status === CREATE_USER_ERROR_CODE
               ? DUBLICATE_ERROR_MESSAGE
               : UNDEFINED_ERROR_MESSAGE,
-          success: false,
         });
       })
-      .finally(() => setIsLoadingButton(false));
+      .finally(() => {
+        setIsLoadingButton(false);
+        setIsInputDisactive(false);
+      });
   };
 
   const handleEditProfile = (e) => {
     e.preventDefault();
-    setIsInputActive(false);
+    setIsInputDisactive(false);
     setIsButton(true);
   };
 
   const cancelEditProfile = (e) => {
     e.preventDefault();
-    setIsInputActive(true);
+    setIsInputDisactive(true);
     setIsButton(false);
   };
 
   const handleUpdateUser = (user) => {
     setIsLoadingButton(true);
+    setIsInputDisactive(true);
+    setIsButton(false);
     mainApi
       .setUserInfo(user)
       .then((user) => {
@@ -167,16 +180,14 @@ function App() {
           message: SUCCESS_UPDATE_MESSAGE,
           success: true,
         });
-        setIsInputActive(true);
-        setIsButton(false);
       })
       .catch(({ err, message }) => {
         openTooltip({
+          success: false,
           message:
-            err.status === CREATE_USER_ERROR_CODE
+            err && err.status === CREATE_USER_ERROR_CODE
               ? DUBLICATE_ERROR_MESSAGE
               : UNDEFINED_ERROR_MESSAGE,
-          success: false,
         });
         console.log(message);
       })
@@ -191,6 +202,7 @@ function App() {
     mainApi
       .setItems(movie)
       .then((data) => {
+        setIsFavorite(true);
         setFavoriteMovies([...favoriteMovies, data]);
         const favoritesList = JSON.parse(localStorage.getItem('favorites')) || [];
         localStorage.setItem('favorites', JSON.stringify([...favoritesList, movie.movieId]));
@@ -203,6 +215,7 @@ function App() {
     mainApi
       .deleteItem(favoriteMovie._id)
       .then((data) => {
+        setIsFavorite(false);
         const userFavorites = favoriteMovies.filter(
           (favorite) => favorite.movieId !== movie.movieId
         );
@@ -251,6 +264,7 @@ function App() {
                 onRemoveMovie={handleRemoveMovie}
                 handleEmptySearch={handleEmptySearch}
                 DataErrorMessage={DataErrorMessage}
+                isFavorite={isFavorite}
                 element={movies.length ? Movies : Preloader}
               />
             }
@@ -264,6 +278,7 @@ function App() {
                 loggedIn={loggedIn}
                 onRemoveMovie={handleRemoveMovie}
                 handleEmptySearch={handleEmptySearch}
+                isFavorite={isFavorite}
                 element={favoriteMovies ? Movies : Preloader}
               />
             }
@@ -274,7 +289,7 @@ function App() {
               <ProtectedRoute
                 loggedIn={loggedIn}
                 isLoadingButton={isLoadingButton}
-                isInputActive={isInputActive}
+                isInputDisactive={isInputDisactive}
                 isButton={isButton}
                 onLogout={handleLogout}
                 onUpdateUser={handleUpdateUser}
@@ -290,7 +305,11 @@ function App() {
               loggedIn ? (
                 <Navigate to="/movies" />
               ) : (
-                <Login onLogin={handleLogin} isLoadingButton={isLoadingButton} />
+                <Login
+                  onLogin={handleLogin}
+                  isLoadingButton={isLoadingButton}
+                  isInputDisactive={isInputDisactive}
+                />
               )
             }
           />
@@ -300,7 +319,11 @@ function App() {
               loggedIn ? (
                 <Navigate to="/movies" />
               ) : (
-                <Register onRegister={handleRegister} isLoadingButton={isLoadingButton} />
+                <Register
+                  onRegister={handleRegister}
+                  isLoadingButton={isLoadingButton}
+                  isInputDisactive={isInputDisactive}
+                />
               )
             }
           />
