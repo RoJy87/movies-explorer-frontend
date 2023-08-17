@@ -65,6 +65,7 @@ function App() {
 
   useEffect(() => {
     path === '/profile' && setIsInputDisactive(true);
+    (path === '/signin' || path === '/signup') && setIsInputDisactive(false);
   }, [path]);
 
   // User
