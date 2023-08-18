@@ -1,16 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function NotFound() {
+  const navigate = useNavigate();
+
   return (
     <section className="notfound">
       <div className="notfound__container">
         <h2 className="notfound__title">404</h2>
         <p className="notfound__text">Страница не найдена</p>
       </div>
-      <Link className="notfound_link link" to={'/'}>
+      <button className="notfound_link link" onClick={() => navigate(-3)}>
         Назад
-      </Link>
+      </button>
     </section>
   );
 }

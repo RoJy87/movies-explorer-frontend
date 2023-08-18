@@ -44,6 +44,8 @@
   font-weight: 400;
   color: #4285f4;
   text-align: center;
+  border: none;
+  background-color: transparent;
 }
 
 /* ----- Разрешение 768px ------ */
