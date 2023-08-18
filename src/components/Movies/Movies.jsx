@@ -44,7 +44,7 @@ export default function Movies({
       handleSearchMovies();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [favoriteMovies, path]);
+  }, [favoriteMovies]);
 
   useEffect(() => {
     if (path === '/movies') {
@@ -66,7 +66,7 @@ export default function Movies({
       localStorage.setItem('searchMovies', JSON.stringify(resultMovies));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [path, resultMovies]);
+  }, [resultMovies]);
 
   function handleSearchMovies() {
     setIsLoading(true);
@@ -84,13 +84,9 @@ export default function Movies({
     setSearchValues({ ...searchValues, checkBox: e.target.checked });
   };
 
-  const handleChangeValue = useCallback(
-    (value) => {
-      setSearchValues({ ...searchValues, request: value });
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [handleSearchMovies]
-  );
+  const handleChangeValue = (value) => {
+    setSearchValues({ ...searchValues, request: value });
+  };
 
   return (
     <>
