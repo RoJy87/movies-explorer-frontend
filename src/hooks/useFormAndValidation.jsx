@@ -1,60 +1,43 @@
-import { useState, useCallback } from 'react';
-import { EMAIL, NAME, PASSWORD } from '../utils/constants';
+import { useState, useCallback, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { checkPattern } from '../utils/utils';
 
 export function useFormAndValidation() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isFormValid, setFormIsValid] = useState(false);
   const [isInputValid, setInputIsValid] = useState(true);
+  const [isInputsValid, setInputsIsValid] = useState({});
+  const path = useLocation().pathname;
+
+  useEffect(() => {
+    path === '/signup' && setInputsIsValid({ name: false, email: false, password: false });
+    path === '/signin' && setInputsIsValid({ email: false, password: false });
+    path === '/profile' && setInputsIsValid({ name: true, email: true });
+  }, [path]);
+
+  useEffect(() => {
+    setFormIsValid(Object.values(isInputsValid).every((item) => item === true));
+  }, [isInputsValid]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues((values) => ({ ...values, [name]: value }));
 
-    if (name === 'email') {
-      const pattern = new RegExp(EMAIL);
-      const valid = pattern.test(value);
-      setErrors((errors) => ({
-        ...errors,
-        [name]:
-          valid === false && !e.target.validationMessage
-            ? 'Should be email pattern'
-            : e.target.validationMessage,
-      }));
-      setInputIsValid(valid);
-      setFormIsValid(valid);
-    } else if (name === 'password') {
-      const pattern = new RegExp(PASSWORD);
-      const valid = pattern.test(value);
-      setErrors((errors) => ({
-        ...errors,
-        [name]:
-          valid === false && !e.target.validationMessage
-            ? 'Length from 6 to 16 characters including Latin letters, numbers and symbols !@#$%^&*'
-            : e.target.validationMessage,
-      }));
-      setInputIsValid(valid);
-      setFormIsValid(valid);
-    } else if (name === 'name') {
-      const pattern = new RegExp(NAME);
-      const valid = pattern.test(value);
-      setErrors((errors) => ({
-        ...errors,
-        [name]:
-          valid === false && !e.target.validationMessage
-            ? 'Length from 2 to 30 characters including Russian and Latin letters, space or dash.'
-            : e.target.validationMessage,
-      }));
-      setInputIsValid(valid);
-      setFormIsValid(valid);
-    } else {
-      setErrors((errors) => ({
-        ...errors,
-        [name]: e.target.validationMessage,
-      }));
-      setInputIsValid(e.target.checkValidity());
-      setFormIsValid(e.target.closest('form').checkValidity());
-    }
+    const valid = checkPattern(value, name);
+    setErrors((errors) => ({
+      ...errors,
+      [name]:
+        valid === false && !e.target.validationMessage && name === 'name'
+          ? 'Length from 2 to 30 characters including Russian and Latin letters, space or dash.'
+          : valid === false && !e.target.validationMessage && name === 'email'
+          ? 'Should be email pattern'
+          : valid === false && !e.target.validationMessage && name === 'password'
+          ? 'Length from 6 to 16 characters including Latin letters, numbers and symbols !@#$%^&*'
+          : e.target.validationMessage,
+    }));
+    setInputIsValid(valid);
+    setInputsIsValid({ ...isInputsValid, [name]: valid });
   };
 
   const resetForm = useCallback(

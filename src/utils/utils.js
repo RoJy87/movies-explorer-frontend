@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { MOVIES_API_BASE, SHORTS_DURATION } from './constants';
+import { EMAIL, MOVIES_API_BASE, NAME, PASSWORD, SHORTS_DURATION } from './constants';
 
 export const moviesHandler = (movies) => {
   return movies.map((movie) => {
@@ -47,6 +47,22 @@ export function ClosePopupOnEscape({ action }) {
       document.removeEventListener('keydown', handleEscClose);
     };
   });
+}
+
+export function checkPattern(value, name) {
+  let patternName;
+  if (name === 'name') {
+    patternName = NAME;
+  }
+  if (name === 'email') {
+    patternName = EMAIL;
+  }
+  if (name === 'password') {
+    patternName = PASSWORD;
+  }
+  const pattern = new RegExp(patternName);
+  const valid = pattern.test(value);
+  return valid;
 }
 
 export const timeConverter = (minut) => {

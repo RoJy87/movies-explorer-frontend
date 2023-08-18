@@ -31,7 +31,7 @@ export const MOVIES_API_BASE = 'https://api.nomoreparties.co';
 export const MOVIES_API_REQUEST = 'https://api.nomoreparties.co/beatfilm-movies';
 
 export const PASSWORD = '^(?=.*[a-zA-Z0-9!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$';
-export const EMAIL = '^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$';
+export const EMAIL = '^[\\w.-]+@[\\w.-]+?\\.[a-zA-Z]{2,3}$';
 export const NAME = '^[a-zA-Zа-яА-ЯёЁs -]{2,30}$';
 
 export const SHORTS_DURATION = 40;

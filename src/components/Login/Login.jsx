@@ -3,8 +3,7 @@ import AuthPage from '../AuthPage/AuthPage';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 
 export default function Login({ isLoadingButton, onLogin, isInputDisactive }) {
-  const { values, handleChange, errors, isInputValid, isFormValid, setFormIsValid } =
-    useFormAndValidation();
+  const { values, handleChange, errors, isFormValid, setFormIsValid } = useFormAndValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -35,7 +34,7 @@ export default function Login({ isLoadingButton, onLogin, isInputDisactive }) {
         values={values}
         onChange={handleChange}
         errors={
-          <span className={`input-error ${!isInputValid ? 'input-error_visible' : ''}`}>
+          <span className={`input-error ${errors.email ? 'input-error_visible' : ''}`}>
             {errors.email}
           </span>
         }
@@ -52,7 +51,7 @@ export default function Login({ isLoadingButton, onLogin, isInputDisactive }) {
         values={values}
         onChange={handleChange}
         errors={
-          <span className={`input-error ${!isInputValid ? 'input-error_visible' : ''}`}>
+          <span className={`input-error ${errors.password ? 'input-error_visible' : ''}`}>
             {errors.password}
           </span>
         }

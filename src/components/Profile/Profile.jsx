@@ -16,14 +16,15 @@ export default function Profile({
   onCancelEditProfile,
 }) {
   const currentUser = useContext(CurrentUserContext);
-  const { values, setValues, errors, handleChange, isInputValid, isFormValid, setFormIsValid } =
+  const { values, setValues, resetForm, errors, handleChange, isFormValid, setFormIsValid } =
     useFormAndValidation();
 
   useEffect(() => {
-    setValues({
+    resetForm({
       name: currentUser.name,
       email: currentUser.email,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onUpdateUser, currentUser, setValues]);
 
   useEffect(() => {
@@ -77,12 +78,12 @@ export default function Profile({
               onChange={handleChange}
             />
             {errors.name && (
-              <span className={`input-error ${!isInputValid ? 'input-error_visible' : ''}`}>
+              <span className={`input-error ${errors.name ? 'input-error_visible' : ''}`}>
                 Ошибка имени: {errors.name}
               </span>
             )}
             {errors.email && (
-              <span className={`input-error ${!isInputValid ? 'input-error_visible' : ''}`}>
+              <span className={`input-error ${errors.email ? 'input-error_visible' : ''}`}>
                 Ошибка E-mail: {errors.email}
               </span>
             )}
