@@ -11,7 +11,7 @@ export default function Header({ loggedIn, children }) {
     <header
       className={classNames('header', {
         header_auth: loggedIn,
-        header_page_promo: path === '/'
+        header_page_promo: path === '/',
       })}
     >
       <Link to={'/'} className="header__logo">

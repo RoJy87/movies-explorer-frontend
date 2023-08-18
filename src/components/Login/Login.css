@@ -1,11 +1,11 @@
 @media (width >= 768px) {
   .login__label:last-of-type {
-    margin-bottom: 156px;
+    margin-bottom: 136px;
   }
 }
 
 @media (width >= 1024px) {
   .login__label:last-of-type {
-    margin-bottom: 142px;
+    margin-bottom: 122px;
   }
 }

@@ -4,6 +4,10 @@
 
 [Ссылка на Макет](https://www.figma.com/file/vAwEPKplz6KNd86xHVA5gc/Diploma-Simon?type=design&node-id=41457%3A42146&mode=dev)
 
+[Ссылка на Pull Request](https://github.com/RoJy87/movies-explorer-frontend/pull/2)
+
+[Ссылка на Deploy](https://simon.movies.nomoredomains.xyz/movies)
+
 Сервис поиска фильмов.
 
 ### Представлены:

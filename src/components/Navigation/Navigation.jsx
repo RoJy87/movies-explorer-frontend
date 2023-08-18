@@ -1,4 +1,3 @@
-// import { useLocation } from "react-router-dom";
 import React, { useEffect, useRef } from 'react';
 import { classNames } from '../../utils/classNames';
 import { Link, NavLink, useLocation } from 'react-router-dom';
@@ -27,28 +26,25 @@ function Navigation() {
       <nav
         ref={navigationRef}
         className={classNames('navigation__links', {
-          navigation__links_active: isMenuVisible
-        })}
-      >
+          navigation__links_active: isMenuVisible,
+        })}>
         {isMenuVisible && (
           <NavLink
             to={'/'}
             className={({ isActive }) =>
               isActive ? 'navigation__link link navigation__link_active' : 'navigation__link link'
-            }
-          >
+            }>
             Главная
           </NavLink>
         )}
-        {navLinks.map((navLink) => {
+        {navLinks.map((navLink, index) => {
           return (
             <NavLink
-              key={Date.now() + Math.random()}
+              key={index}
               to={navLink.to}
               className={({ isActive }) =>
                 isActive ? 'navigation__link link navigation__link_active' : 'navigation__link link'
-              }
-            >
+              }>
               {navLink.title}
             </NavLink>
           );
@@ -59,8 +55,7 @@ function Navigation() {
       </nav>
       <button
         onClick={handleClickMenu}
-        className={classNames('navigation__burger', { opened: isMenuVisible })}
-      >
+        className={classNames('navigation__burger', { opened: isMenuVisible })}>
         <span className="bar-top"></span>
         <span className="bar-mid"></span>
         <span className="bar-bot"></span>

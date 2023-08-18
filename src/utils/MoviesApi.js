@@ -1,4 +1,4 @@
-import { beatFilmsApiRequest as url } from './constants';
+import { MOVIES_API_REQUEST as url } from './constants';
 
 class MoviesApi {
   constructor({ url, headers, credentials }) {
@@ -11,22 +11,24 @@ class MoviesApi {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(`Ошибка: ${res.status}`);
+    return Promise.reject({
+      err: res,
+      message: `Ошибка: ${res.status}, Причина: ${res.statusText}`,
+    });
   };
 
   // получить список всех карточек в виде массива (GET)
-  getItems() {
-    return fetch(`${this._url}`, {
-      // credentials: this._credentials,
-      headers: this._headers
-    }).then(this._checkResponse);
+  async getItems() {
+    const res = await fetch(`${this._url}`, {
+      headers: this._headers,
+    });
+    return this._checkResponse(res);
   }
 }
 
 export const moviesApi = new MoviesApi({
   url,
-  credentials: 'include',
   headers: {
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 });

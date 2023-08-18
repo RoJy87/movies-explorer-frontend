@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import { windowSizes, cardsQty, cardsQtyToAdd } from '../../utils/constants';
+import { WINDOW_SIZES, MOVIES_QTY, MOVIES_QTY_TO_ADD } from '../../utils/constants';
 import { useLocation } from 'react-router-dom';
 
-export default function MoviesCardList({ movies, handleSaveCard, handleRemoveCard }) {
+export default function MoviesCardList({ movies, onSaveMovie, onRemoveMovie }) {
   const path = useLocation().pathname;
-  const [cardsForShow, setCardsForShow] = useState([]);
-  const [cardsQtyOnPage, setCardsQtyOnPage] = useState(0);
-  const [CardsQtyNext, setCardsQtyNext] = useState(0);
+  const [moviesForShow, setMoviesForShow] = useState([]);
+  const [moviesQtyOnPage, setMoviesQtyOnPage] = useState(0);
+  const [moviesQtyNext, setMoviesQtyNext] = useState(0);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const resizeWindow = () => {
@@ -17,15 +17,15 @@ export default function MoviesCardList({ movies, handleSaveCard, handleRemoveCar
   useEffect(() => {
     window.addEventListener('resize', resizeWindow);
 
-    if (windowWidth > windowSizes.pc) {
-      setCardsQtyOnPage(cardsQty.pc);
-      setCardsQtyNext(cardsQtyToAdd.pc);
-    } else if (windowWidth < windowSizes.pc && windowWidth > windowSizes.mobile) {
-      setCardsQtyOnPage(cardsQty.tablet);
-      setCardsQtyNext(cardsQtyToAdd.tablet);
-    } else if (windowWidth < windowSizes.mobile) {
-      setCardsQtyOnPage(cardsQty.mobile);
-      setCardsQtyNext(cardsQtyToAdd.mobile);
+    if (windowWidth > WINDOW_SIZES.pc) {
+      setMoviesQtyOnPage(MOVIES_QTY.pc);
+      setMoviesQtyNext(MOVIES_QTY_TO_ADD.pc);
+    } else if (windowWidth <= WINDOW_SIZES.pc && windowWidth >= WINDOW_SIZES.mobile) {
+      setMoviesQtyOnPage(MOVIES_QTY.tablet);
+      setMoviesQtyNext(MOVIES_QTY_TO_ADD.tablet);
+    } else if (windowWidth < WINDOW_SIZES.mobile) {
+      setMoviesQtyOnPage(MOVIES_QTY.mobile);
+      setMoviesQtyNext(MOVIES_QTY_TO_ADD.mobile);
     }
 
     return () => window.removeEventListener('resize', resizeWindow);
@@ -33,42 +33,39 @@ export default function MoviesCardList({ movies, handleSaveCard, handleRemoveCar
 
   useEffect(() => {
     path === '/movies'
-      ? setCardsForShow(movies?.slice(0, cardsQtyOnPage))
-      : setCardsForShow(movies);
-  }, [cardsQtyOnPage, movies, path]);
+      ? setMoviesForShow(movies.slice(0, moviesQtyOnPage))
+      : setMoviesForShow(movies);
+  }, [moviesQtyOnPage, movies, path]);
 
-  const onAddCard = () => {
-    setCardsForShow(movies.slice(0, cardsForShow.length + CardsQtyNext));
+  const onAddMovies = () => {
+    setMoviesForShow(movies.slice(0, moviesForShow.length + moviesQtyNext));
   };
 
   return (
     <section className="movies-cards" aria-label="Трейлеры фильмов">
-      {movies.length ? (
-        <ul className="movies-cards__list">
-          {cardsForShow.map((movie) => {
-            return (
-              <MoviesCard
-                movie={movie}
-                key={Math.random() + Date.now()}
-                handleSaveCard={handleSaveCard}
-                handleRemoveCard={handleRemoveCard}
-                isFavorite={localStorage.getItem('favorites').includes(movie.id)}
-              />
-            );
-          })}
-        </ul>
-      ) : (
-        <p className="text-primary">Ничего не найдено!</p>
-      )}
-      {
+      <ul className="movies-cards__list">
+        {moviesForShow.map((movie) => {
+          return (
+            <MoviesCard
+              movie={movie}
+              key={movie.movieId}
+              onSaveMovie={onSaveMovie}
+              onRemoveMovie={onRemoveMovie}
+              isFavorite={JSON.parse(localStorage.getItem('favorites'))?.includes(movie.movieId)}
+            />
+          );
+        })}
+      </ul>
+
+      {path === '/movies' && (
         <button
-          onClick={onAddCard}
+          onClick={onAddMovies}
           className={`button movies-cards__button ${
-            movies <= cardsForShow && 'movies-cards__button_hidden'
+            movies <= moviesForShow && 'movies-cards__button_hidden'
           }`}>
           Ещё
         </button>
-      }
+      )}
     </section>
   );
 }

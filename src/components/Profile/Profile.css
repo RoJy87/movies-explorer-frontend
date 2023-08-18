@@ -98,6 +98,19 @@
   border: none;
 }
 
+.profile__cancel-btn {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+  color: #ee3465;
+  text-align: center;
+
+  margin-top: 10px;
+
+  background-color: transparent;
+  border: none;
+}
+
 /* ----- Разрешение 768px ------ */
 
 @media (width >= 768px) {
@@ -127,11 +140,8 @@
   }
 
   .profile__container {
+    min-height: 482px;
     padding: 0;
     margin: 42px 0;
-  }
-
-  .profile-form__label:last-of-type {
-    margin-bottom: 200px;
   }
 }

@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 export default function AuthPage({
   title,
   name,
-  className,
   onSubmit,
   linkText,
   linkName,
@@ -14,7 +13,7 @@ export default function AuthPage({
   loadingBtn,
   loadedBtn,
   isLoadingButton,
-  isFormValid
+  isFormValid,
 }) {
   return (
     <section className="auth">

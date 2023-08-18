@@ -1,22 +1,15 @@
-import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { timeConverter } from '../../utils/utils';
 
-export default function MoviesCard({ movie, handleSaveCard, handleRemoveCard, isFavorite }) {
-  const [isCardFavorite, setIsCardFavorite] = useState(isFavorite);
+export default function MoviesCard({ movie, onSaveMovie, onRemoveMovie, isFavorite }) {
   const path = useLocation().pathname;
 
-  const timeConverter = (minut) => {
-    return `${Math.floor(minut / 60)}ч ${minut % 60}м`;
-  };
-
   const handleSave = () => {
-    handleSaveCard(movie);
-    setIsCardFavorite(true);
+    onSaveMovie(movie);
   };
 
   const handleRemove = () => {
-    handleRemoveCard(movie);
-    setIsCardFavorite(false);
+    onRemoveMovie(movie);
   };
 
   return (
@@ -29,31 +22,19 @@ export default function MoviesCard({ movie, handleSaveCard, handleRemoveCard, is
         {path === '/saved-movies' ? (
           <button
             className="button movies-card__button movies-card__button_type_close"
-            onClick={handleRemove}
-          ></button>
-        ) : isCardFavorite ? (
+            onClick={handleRemove}></button>
+        ) : isFavorite ? (
           <button
             onClick={handleRemove}
-            className="button movies-card__button movies-card__button_type_saved"
-          ></button>
+            className="button movies-card__button movies-card__button_type_saved"></button>
         ) : (
           <button
             onClick={handleSave}
-            className="button movies-card__button movies-card__button_type_normal"
-          ></button>
+            className="button movies-card__button movies-card__button_type_normal"></button>
         )}
       </div>
-      <Link
-        to={movie.trailerLink}
-        className="movies-card__img-button link"
-        target="_blanck"
-        rel="noopener noreferrer"
-      >
-        <img
-          className="movies-card__img"
-          src={`https://api.nomoreparties.co/${movie.image.url}`}
-          alt={movie.nameRU}
-        />
+      <Link to={movie.trailerLink} className="movies-card__img-button link" target="_blanck">
+        <img className="movies-card__img" src={movie.image} alt={movie.nameRU} />
       </Link>
     </li>
   );

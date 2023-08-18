@@ -1,4 +1,4 @@
-import ClosePopupOnEscape from '../../utils/ClosePopupOnEscape';
+import { ClosePopupOnEscape } from '../../utils/utils';
 import { classNames } from '../../utils/classNames';
 import confirm__img from '../../images/confirm__img.svg';
 import reject__img from '../../images/reject__img.svg';

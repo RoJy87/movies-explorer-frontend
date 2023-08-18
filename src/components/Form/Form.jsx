@@ -9,7 +9,7 @@ export default function Form({
   loadingBtn,
   loadedBtn,
   isLoadingButton,
-  children
+  children,
 }) {
   const [buttonName, setButtonName] = useState(loadedBtn);
 
